@@ -5,7 +5,7 @@ import Profile from 'pages/Profile';
 import Habits from 'pages/Habits';
 
 export const paths = {
-  register: '/account/resister',
+  register: '/account/register',
   login: '/account/login',
   reset: '/account/reset',
   profile: '/account/profile',
@@ -16,31 +16,31 @@ export default [
   {
     path: paths.register,
     component: Register,
-    redirect: paths.habits,
+    redirectPath: paths.habits,
     protected: false,
   },
   {
     path: paths.login,
     component: Login,
-    redirect: paths.habits,
+    redirectPath: paths.habits,
     protected: false,
   },
   {
     path: paths.reset,
     component: Reset,
-    redirect: paths.login,
+    redirectPath: paths.login,
     protected: false,
   },
   {
     path: paths.profile,
     component: Profile,
-    redirect: paths.login,
+    redirectPath: paths.login,
     protected: true,
   },
   {
     path: paths.habits,
     component: Habits,
-    redirect: paths.login,
+    redirectPath: paths.login,
     protected: true,
   },
 ];
