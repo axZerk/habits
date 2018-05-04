@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
-import './styles.css';
 
 class App extends Component {
+  state = {};
+
   render() {
-    return <div />;
+    return (
+      <div>
+        App Component
+      </div>
+    );
   }
 }
 
