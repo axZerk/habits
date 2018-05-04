@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Switch } from 'react-router-dom';
 import PrivateRoute from '../PrivateRoute';
 import routes from 'routes';
-// import Header from '../Header';
 
 export default class App extends Component {
   state = {
