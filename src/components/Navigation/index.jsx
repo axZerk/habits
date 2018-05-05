@@ -1,41 +1,25 @@
-import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import NavItems from './NavItems';
 import { routes } from 'routes';
 import styles from './styles.css';
 
-// import { Ava } from '../Avatar';
-// const SignOutButton = ({ onSignOut }) => (
-//   <button className={styles.btnLogout} type="button" onClick={onSignOut}>
-//     Log Out
-//   </button>
-// );
-// <NavigationAuth onSignOut={onSignOut} />
+const navLinks = {
+  public: [
+    { path: routes.login, text: 'Log In' }
+  ],
+  private: [
+    { path: routes.habits, text: 'Habits' },
+    { path: routes.profile, text: 'Profile' },
+    { path: routes.logout, text: ' Log Out' },
+  ],
+};
 
-const PublicLinks = () => (
-  <Fragment>
-    <li>
-      <Link to={routes.login}>Log In</Link>
-    </li>
-  </Fragment>
-);
-
-const PrivateLinks = () => (
-  <Fragment>
-    <li>
-      <Link to={routes.habits}>Habits</Link>
-    </li>
-    <li>
-      <Link to={routes.profile}>Profile</Link>
-    </li>
-    <li>
-      <Link to="/">Log Out</Link>
-    </li>
-  </Fragment>
-);
-
-const Navigation = ({ isAuthenticated, onSignOut }) => (
+const Navigation = ({ isAuthenticated }) => (
   <ul className={styles.nav}>
-    {isAuthenticated ? <PrivateLinks /> : <PublicLinks />}
+    {isAuthenticated
+      ? <NavItems items={navLinks.private} />
+      : <NavItems items={navLinks.public} />
+    }
   </ul>
 );
 

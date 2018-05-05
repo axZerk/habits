@@ -1,11 +1,22 @@
 .nav {
   display: flex;
-  width: 200px;
   align-items: center;
   justify-content: space-around;
+  margin: 0;
+  padding: 0;
   list-style: none;
 }
 
-.nav a {
+.link {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 400;
   color: #ffffff;
+  border-radius: 2px;
+}
+
+.active {
+  background-color: #ff4081;
 }
