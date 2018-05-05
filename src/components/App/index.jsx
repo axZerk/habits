@@ -11,14 +11,27 @@ export default class App extends Component {
     displayName: null,
     isLoading: false,
     userId: null,
-    isAuthenticated: true,
+    isAuth: false,
+  };
+
+  handleLogin = () => {
+    this.setState({ isAuth: true });
+  };
+
+  handleLogout = () => {
+    this.setState({ isAuth: false });
   };
 
   render() {
-    const { isAuthenticated } = this.state;
+    const { isAuth } = this.state;
 
     return (
-      <AuthContext.Provider value={{ ...this.state }}>
+      <AuthContext.Provider
+        value={{
+          ...this.state,
+          onLogin: this.handleLogin,
+          onLogout: this.handleLogout,
+        }}>
         <AppBar />
         <Switch>
           {routerConfig.map(route => (
@@ -26,9 +39,7 @@ export default class App extends Component {
               key={route.path}
               path={route.path}
               component={route.component}
-              isAuthenticated={
-                route.protected ? isAuthenticated : !isAuthenticated
-              }
+              isAuthenticated={route.protected ? isAuth : !isAuth}
               redirectTo={route.redirectPath}
             />
           ))}

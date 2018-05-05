@@ -14,9 +14,9 @@ const navLinks = {
   ],
 };
 
-const Navigation = ({ isAuthenticated }) => (
+const Navigation = ({ isAuth }) => (
   <ul className={styles.nav}>
-    {isAuthenticated
+    {isAuth
       ? <NavItems items={navLinks.private} />
       : <NavItems items={navLinks.public} />
     }

@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import withAuthContext from 'hoc/withAuthContext';
 import { routes } from 'routes';
 
-export default class Logout extends Component {
+class Logout extends Component {
   componentDidMount() {
-    // TODO: добавить логику логаута
-    // this.props.onLogout();
+    if (this.props.isAuth) {
+      this.props.onLogout();
+    }
   }
 
   render() {
     return <Redirect to={routes.login} />;
   }
 }
+
+export default withAuthContext(Logout);
