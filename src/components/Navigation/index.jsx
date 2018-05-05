@@ -1,10 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import SignOutButton from '../SignOut';
-// import * as routes from '../../constants/routes';
-import { Ava } from '../Avatar';
-import { HabitContext } from '../App';
-import { HOME } from '../../constants/routes';
+import { paths } from 'routes';
+// import { Ava } from '../Avatar';
 import styles from './styles.css';
 
 // const SignOutButton = ({ onSignOut }) => (
@@ -13,34 +10,38 @@ import styles from './styles.css';
 //   </button>
 // );
 
-const publicLinks = () => (
-  <li>
-    <Link to={routes.SIGN_IN} />
-  </li>
+const PublicLinks = () => (
+  <Fragment>
+    <li>
+      <Link to={paths.login}>Log In</Link>
+    </li>
+  </Fragment>
 );
 
-const privateLinks = () => (
-  <li>
+const PrivateLinks = () => (
+  <Fragment>
     <li>
-      <Link to={HOME}>HOME</Link>
+      <Link to={paths.habits}>Habits</Link>
     </li>
     <li>
-      <Link to={routes.ACCOUNT}>{/* <Ava /> */}</Link>
+      <Link to={paths.profile}>Profile</Link>
     </li>
     <li>
-      <button>Log Out</button>
+      <Link to="/">Log Out</Link>
     </li>
-  </li>
+  </Fragment>
 );
 
-const Navigation = () => (
-  <HabitContext.Consumer>
-    {({ isAuth, onSignOut }) =>
-      isAuth ? <NavigationAuth onSignOut={onSignOut} /> : <NavigationNonAuth />
-    }
-  </HabitContext.Consumer>
+const Navigation = ({ isAuth, onSignOut }) => (
+  <ul className={styles.nav}>{isAuth ? <PrivateLinks /> : <PublicLinks />}</ul>
 );
 
-const NavigationAuth = ({ onSignOut }) => <ul className={styles.nav} />;
+// const Navigation = () => (
+//   <HabitContext.Consumer>
+//     {({ isAuth, onSignOut }) =>
+//       isAuth ? <NavigationAuth onSignOut={onSignOut} /> : <NavigationNonAuth />
+//     }
+//   </HabitContext.Consumer>
+// );
 
 export default Navigation;

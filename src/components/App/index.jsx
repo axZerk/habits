@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Switch } from 'react-router-dom';
 import PrivateRoute from '../PrivateRoute';
+import AppBar from 'components/AppBar';
 import routes from 'routes';
 
 export default class App extends Component {
   state = {
-    isLoggedIn: false,
+    isLoggedIn: true,
   };
 
   render() {
@@ -13,6 +14,7 @@ export default class App extends Component {
 
     return (
       <div>
+        <AppBar />
         <Switch>
           {routes.map(route => (
             <PrivateRoute
