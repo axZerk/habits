@@ -4,7 +4,8 @@ import { routes } from 'routes';
 
 export default class Logout extends Component {
   componentDidMount() {
-    this.props.onLogout();
+    // TODO: добавить логику логаута
+    // this.props.onLogout();
   }
 
   render() {
