@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import PrivateRoute from '../PrivateRoute';
 import AppBar from 'components/AppBar';
-import routerConfig from 'routes';
+import routerConfig from 'routing';
 import { AuthContext } from 'context';
+import { routes } from '../../routing';
 
 export default class App extends Component {
   state = {
@@ -50,6 +51,7 @@ export default class App extends Component {
               redirectTo={route.redirectPath}
             />
           ))}
+          <Redirect to={routes.login} />
         </Switch>
       </AuthContext.Provider>
     );

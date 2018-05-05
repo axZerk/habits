@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import withAuthContext from 'hoc/withAuthContext';
-import { routes } from 'routes';
+import { routes } from 'routing';
 
 class Logout extends Component {
   componentDidMount() {

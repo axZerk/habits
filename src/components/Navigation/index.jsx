@@ -1,6 +1,6 @@
 import React from 'react';
 import NavItems from './NavItems';
-import { routes } from 'routes';
+import { routes } from 'routing';
 import styles from './styles.css';
 
 const navLinks = {
