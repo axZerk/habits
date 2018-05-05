@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { paths } from 'routes';
+import { routes } from 'routes';
 // import { Ava } from '../Avatar';
 import styles from './styles.css';
 
@@ -13,7 +13,7 @@ import styles from './styles.css';
 const PublicLinks = () => (
   <Fragment>
     <li>
-      <Link to={paths.login}>Log In</Link>
+      <Link to={routes.login}>Log In</Link>
     </li>
   </Fragment>
 );
@@ -21,10 +21,10 @@ const PublicLinks = () => (
 const PrivateLinks = () => (
   <Fragment>
     <li>
-      <Link to={paths.habits}>Habits</Link>
+      <Link to={routes.habits}>Habits</Link>
     </li>
     <li>
-      <Link to={paths.profile}>Profile</Link>
+      <Link to={routes.profile}>Profile</Link>
     </li>
     <li>
       <Link to="/">Log Out</Link>

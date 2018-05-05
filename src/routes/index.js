@@ -4,7 +4,7 @@ import Reset from 'pages/Reset';
 import Profile from 'pages/Profile';
 import Habits from 'pages/Habits';
 
-export const paths = {
+export const routes = {
   register: '/account/register',
   login: '/account/login',
   reset: '/account/reset',
@@ -12,35 +12,37 @@ export const paths = {
   habits: '/habits',
 };
 
-export default [
+const routerConfig = [
   {
-    path: paths.register,
+    path: routes.register,
     component: Register,
-    redirectPath: paths.habits,
+    redirectPath: routes.habits,
     protected: false,
   },
   {
-    path: paths.login,
+    path: routes.login,
     component: Login,
-    redirectPath: paths.habits,
+    redirectPath: routes.habits,
     protected: false,
   },
   {
-    path: paths.reset,
+    path: routes.reset,
     component: Reset,
-    redirectPath: paths.login,
+    redirectPath: routes.login,
     protected: false,
   },
   {
-    path: paths.profile,
+    path: routes.profile,
     component: Profile,
-    redirectPath: paths.login,
+    redirectPath: routes.login,
     protected: true,
   },
   {
-    path: paths.habits,
+    path: routes.habits,
     component: Habits,
-    redirectPath: paths.login,
+    redirectPath: routes.login,
     protected: true,
   },
 ];
+
+export default routerConfig;

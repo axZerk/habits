@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Switch } from 'react-router-dom';
 import PrivateRoute from '../PrivateRoute';
 import AppBar from 'components/AppBar';
-import routes from 'routes';
+import routerConfig from 'routes';
 
 export default class App extends Component {
   state = {
@@ -16,7 +16,7 @@ export default class App extends Component {
       <div>
         <AppBar />
         <Switch>
-          {routes.map(route => (
+          {routerConfig.map(route => (
             <PrivateRoute
               key={route.path}
               path={route.path}
