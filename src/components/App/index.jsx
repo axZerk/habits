@@ -6,7 +6,7 @@ import routerConfig from 'routes';
 
 export default class App extends Component {
   state = {
-    isLoggedIn: true,
+    isLoggedIn: false,
   };
 
   render() {
