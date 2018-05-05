@@ -1,12 +1,12 @@
 import * as firebase from 'firebase';
 
 const config = {
-  apiKey: 'AIzaSyArsopqnR-jrcpw29ssahiPxucnbup8-74',
-  authDomain: 'habits-app-fe3.firebaseapp.com',
-  databaseURL: 'https://habits-app-fe3.firebaseio.com',
-  projectId: 'habits-app-fe3',
-  storageBucket: 'habits-app-fe3.appspot.com',
-  messagingSenderId: '913391943247',
+  apiKey: 'AIzaSyBHCosX1CHJh6VD5sFPfsuUhhYItxwmI5Q',
+  authDomain: 'habits-43acf.firebaseapp.com',
+  databaseURL: 'https://habits-43acf.firebaseio.com',
+  projectId: 'habits-43acf',
+  storageBucket: 'habits-43acf.appspot.com',
+  messagingSenderId: '895756855644',
 };
 
 firebase.initializeApp(config);
