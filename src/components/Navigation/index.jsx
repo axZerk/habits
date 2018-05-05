@@ -1,6 +1,6 @@
 import React from 'react';
 import NavItems from './NavItems';
-import { routes } from 'routes';
+import { routes } from 'routing';
 import styles from './styles.css';
 
 const navLinks = {
@@ -14,9 +14,9 @@ const navLinks = {
   ],
 };
 
-const Navigation = ({ isAuthenticated }) => (
+const Navigation = ({ isAuth }) => (
   <ul className={styles.nav}>
-    {isAuthenticated
+    {isAuth
       ? <NavItems items={navLinks.private} />
       : <NavItems items={navLinks.public} />
     }

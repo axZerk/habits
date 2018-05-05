@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Switch } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import PrivateRoute from '../PrivateRoute';
 import AppBar from 'components/AppBar';
-import routerConfig from 'routes';
+import routerConfig from 'routing';
 import { AuthContext } from 'context';
+import { routes } from '../../routing';
 
 export default class App extends Component {
   state = {
@@ -11,27 +12,46 @@ export default class App extends Component {
     displayName: null,
     isLoading: false,
     userId: null,
-    isAuthenticated: true,
+    isAuth: false,
+  };
+
+  handleLogin = () => {
+    this.setState({ isAuth: true });
+  };
+
+  handleLogout = () => {
+    this.setState({ isAuth: false });
   };
 
   render() {
-    const { isAuthenticated } = this.state;
+    const { isAuth } = this.state;
 
     return (
-      <AuthContext.Provider value={{ ...this.state }}>
+      <AuthContext.Provider
+        value={{
+          ...this.state,
+          onLogin: this.handleLogin,
+          onLogout: this.handleLogout,
+        }}>
         <AppBar />
         <Switch>
-          {routerConfig.map(route => (
+          {routerConfig.public.map(route => (
+            <Route
+              key={route.path}
+              path={route.path}
+              component={route.component}
+            />
+          ))}
+          {routerConfig.private.map(route => (
             <PrivateRoute
               key={route.path}
               path={route.path}
               component={route.component}
-              isAuthenticated={
-                route.protected ? isAuthenticated : !isAuthenticated
-              }
+              isAuthenticated={isAuth}
               redirectTo={route.redirectPath}
             />
           ))}
+          <Redirect to={routes.login} />
         </Switch>
       </AuthContext.Provider>
     );
