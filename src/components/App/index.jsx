@@ -11,7 +11,7 @@ export default class App extends Component {
     displayName: null,
     isLoading: false,
     userId: null,
-    isAuthenticated: false,
+    isAuthenticated: true,
   };
 
   render() {

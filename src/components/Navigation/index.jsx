@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { routes } from 'routes';
 import styles from './styles.css';
 
@@ -14,7 +14,12 @@ import styles from './styles.css';
 const PublicLinks = () => (
   <Fragment>
     <li>
-      <Link to={routes.login}>Log In</Link>
+      <NavLink
+        className={styles.link}
+        activeClassName={styles.active}
+        to={routes.login}>
+        Log In
+      </NavLink>
     </li>
   </Fragment>
 );
@@ -22,13 +27,25 @@ const PublicLinks = () => (
 const PrivateLinks = () => (
   <Fragment>
     <li>
-      <Link to={routes.habits}>Habits</Link>
+      <NavLink
+        className={styles.link}
+        activeClassName={styles.active}
+        to={routes.habits}>
+        Habits
+      </NavLink>
     </li>
     <li>
-      <Link to={routes.profile}>Profile</Link>
+      <NavLink
+        className={styles.link}
+        activeClassName={styles.active}
+        to={routes.profile}>
+        Profile
+      </NavLink>
     </li>
     <li>
-      <Link to="/">Log Out</Link>
+      <NavLink className={styles.link} activeClassName={styles.active} to="/">
+        Log Out
+      </NavLink>
     </li>
   </Fragment>
 );

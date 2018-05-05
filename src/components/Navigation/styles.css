@@ -1,11 +1,20 @@
 .nav {
   display: flex;
-  width: 200px;
   align-items: center;
   justify-content: space-around;
+  margin: 0;
+  padding: 0;
   list-style: none;
 }
 
-.nav a {
+.link {
+  display: block;
+  padding: 5px 10px;
+  text-decoration: none;
   color: #ffffff;
+  text-transform: uppercase;
+}
+
+.active {
+  background-color: palevioletred;
 }
