@@ -14,43 +14,41 @@ export const routes = {
   habits: '/habits',
 };
 
-const routerConfig = [
-  {
-    path: routes.register,
-    component: Register,
-    redirectPath: routes.habits,
-    protected: false,
-  },
-  {
-    path: routes.login,
-    component: Login,
-    redirectPath: routes.habits,
-    protected: false,
-  },
-  {
-    path: routes.logout,
-    component: Logout,
-    redirectPath: routes.login,
-    protected: true,
-  },
-  {
-    path: routes.reset,
-    component: Reset,
-    redirectPath: routes.login,
-    protected: false,
-  },
-  {
-    path: routes.profile,
-    component: Profile,
-    redirectPath: routes.login,
-    protected: true,
-  },
-  {
-    path: routes.habits,
-    component: Habits,
-    redirectPath: routes.login,
-    protected: true,
-  },
-];
+const routerConfig = {
+  public: [
+    {
+      path: routes.register,
+      component: Register,
+      redirectPath: routes.habits,
+    },
+    {
+      path: routes.login,
+      component: Login,
+      redirectPath: routes.habits,
+    },
+  ],
+  private: [
+    {
+      path: routes.logout,
+      component: Logout,
+      redirectPath: routes.login,
+    },
+    {
+      path: routes.reset,
+      component: Reset,
+      redirectPath: routes.login,
+    },
+    {
+      path: routes.profile,
+      component: Profile,
+      redirectPath: routes.login,
+    },
+    {
+      path: routes.habits,
+      component: Habits,
+      redirectPath: routes.login,
+    },
+  ],
+};
 
 export default routerConfig;

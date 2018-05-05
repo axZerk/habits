@@ -5,8 +5,10 @@ import { routes } from 'routes';
 
 class Logout extends Component {
   componentDidMount() {
-    if (this.props.isAuth) {
-      this.props.onLogout();
+    const { isAuth, onLogout } = this.props;
+
+    if (isAuth) {
+      onLogout();
     }
   }
 
