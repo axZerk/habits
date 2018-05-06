@@ -15,6 +15,7 @@ export default class App extends Component {
   };
 
   handleLogin = () => {
+    console.log('Logged In!');
     this.setState({ isAuth: true });
   };
 

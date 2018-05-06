@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import LoginForm from '../forms/LoginForm';
 import withAuthContext from '../../hoc/withAuthContext';
 import { routes } from '../../routing';
 
@@ -8,16 +9,15 @@ class LoginPage extends Component {
   static propTypes = {
     onLogin: PropTypes.func.isRequired,
     location: PropTypes.shape.isRequired,
-    isAuth:PropTypes.bool.isRequired,
+    isAuth: PropTypes.bool.isRequired,
   };
 
   state = {
     redirectToReferrer: false,
   };
 
-  handleLogin = evt => {
-    evt.preventDefault();
-    this.props.onLogin();
+  handleLogin = credentials => {
+    this.props.onLogin(credentials);
     this.setState({ redirectToReferrer: true });
   };
 
@@ -37,7 +37,7 @@ class LoginPage extends Component {
     return (
       <div>
         <h1>Login Page</h1>
-        <button onClick={this.handleLogin}>Log In</button>
+        <LoginForm onSubmit={this.handleLogin} />
       </div>
     );
   }
