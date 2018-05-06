@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-// import LoginForm from '../forms/LoginForm';
-import LoginForm from '../LoginForm';
-
+import LoginForm from '../forms/LoginForm';
 import withAuthContext from '../../hoc/withAuthContext';
 import { routes } from '../../routing';
 import { signInWithEmailAndPassword } from '../../firebase';
@@ -39,7 +37,6 @@ class LoginPage extends Component {
 
     return (
       <div>
-        <h1>Login Page</h1>
         <LoginForm onSubmit={this.handleLogin} />
       </div>
     );

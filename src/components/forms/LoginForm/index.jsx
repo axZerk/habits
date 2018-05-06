@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Validator from 'validator';
+import styles from './styles.css';
 
 export default class LoginForm extends Component {
   static propTypes = {
@@ -12,8 +13,18 @@ export default class LoginForm extends Component {
       email: '',
       password: '',
     },
-    loading: false,
     errors: {},
+  };
+
+  handleChange = e => {
+    const { name, value } = e.target;
+
+    this.setState({
+      data: {
+        ...this.state.data,
+        [name]: value,
+      },
+    });
   };
 
   handleSubmit = evt => {
@@ -31,7 +42,7 @@ export default class LoginForm extends Component {
     const errors = {};
 
     if (!data.password) {
-      errors.password = "Can't ba blank";
+      errors.password = 'This is not a valid password';
     }
 
     if (!Validator.isEmail(data.email)) {
@@ -41,47 +52,40 @@ export default class LoginForm extends Component {
     return errors;
   };
 
-  handleChange = e => {
-    const { name, value } = e.target;
-
-    this.setState({
-      data: {
-        ...this.state.data,
-        [name]: value,
-      },
-    });
-  };
-
   render() {
-    const { email, password } = this.state.data;
+    const {
+      data: { email, password },
+    } = this.state;
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <ul>
-          <li>
+      <form className={styles.form} onSubmit={this.handleSubmit}>
+        <ul className={styles.list}>
+          <li className={styles.item}>
             <label htmlFor="email">Email</label>
             <input
               type="email"
               id="email"
               name="email"
+              className={styles.input}
               placeholder="example@example.com"
               value={email}
               onChange={this.handleChange}
             />
           </li>
-          <li>
+          <li className={styles.item}>
             <label htmlFor="password">Password</label>
             <input
               type="password"
               id="password"
               name="password"
+              className={styles.input}
               placeholder="Make it secure"
               value={password}
               onChange={this.handleChange}
             />
           </li>
         </ul>
-        <button>Login</button>
+        <button className={styles.button}>Login</button>
       </form>
     );
   }
