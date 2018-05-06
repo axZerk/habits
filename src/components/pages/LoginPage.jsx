@@ -37,7 +37,6 @@ class LoginPage extends Component {
 
     return (
       <div>
-        <h1>Login Page</h1>
         <LoginForm onSubmit={this.handleLogin} />
       </div>
     );
