@@ -1,14 +1,14 @@
-import { auth } from './firebase';
+import { auth } from './config';
 
 /**
  * Create new user on firebase
  *
  * @param {Object} { email, password }
  */
-const createUserWithEmailAndPassword = ({ email, password }) =>
+export const createUserWithEmailAndPassword = ({ email, password }) =>
   auth
     .createUserWithEmailAndPassword(email, password)
-    .catch(err => console.error(error));
+    .catch(error => console.error(error));
 
 /**
  * Sign in existing user
@@ -24,21 +24,23 @@ export const signInWithEmailAndPassword = ({ email, password }) =>
  * Sign user out
  *
  */
-const signOut = () => auth.signOut().catch(error => console.error(error));
+export const signOut = () =>
+  auth.signOut().catch(error => console.error(error));
 
 /**
  * Start authentication listening process
  *
  * @param {Object} { onSignIn, onSignOut }
  */
-const initAuthStateListener = ({ onSignIn, onSignOut }) =>
+export const initAuthStateListener = ({ onSignIn, onSignOut }) =>
   auth.onAuthStateChanged(user => {
     if (user) {
       console.log('[AUTH] => user logged in!');
       onSignIn(user);
     } else {
       console.log('[AUTH] => user logged out!');
+      onSignOut();
       // FIXME: Не уверен что тут нужны эти вызовы
-      doSignOut().then(() => onSignOut());
+      // doSignOut().then(() => onSignOut());
     }
   });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { routes } from 'routing';
+import { routes } from '../../routing';
 import styles from './styles.css';
 
 const navLinks = [
