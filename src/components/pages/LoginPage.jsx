@@ -4,10 +4,10 @@ import { Redirect } from 'react-router-dom';
 import LoginForm from '../forms/LoginForm';
 import withAuthContext from '../../hoc/withAuthContext';
 import { routes } from '../../routing';
+import { signInWithEmailAndPassword } from '../../firebase';
 
 class LoginPage extends Component {
   static propTypes = {
-    onLogin: PropTypes.func.isRequired,
     location: PropTypes.shape.isRequired,
     isAuth: PropTypes.bool.isRequired,
   };
@@ -17,8 +17,9 @@ class LoginPage extends Component {
   };
 
   handleLogin = credentials => {
-    this.props.onLogin(credentials);
-    this.setState({ redirectToReferrer: true });
+    signInWithEmailAndPassword(credentials).then(
+      this.setState({ redirectToReferrer: true }),
+    );
   };
 
   render() {
