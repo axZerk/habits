@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import PrivateRoute from '../PrivateRoute';
-import AppBar from 'components/AppBar';
-import routerConfig from 'routing';
-import { AuthContext } from 'context';
-import { routes } from 'routing';
+import AppBar from '../AppBar';
+import routerConfig, { routes } from '../../routing';
+import { AuthContext } from '../../context';
 
 export default class App extends Component {
   state = {
