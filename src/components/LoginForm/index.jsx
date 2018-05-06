@@ -9,10 +9,10 @@ export default class LoginForm extends Component {
     onSubmit: PropTypes.func.isRequired,
   };
   state = {
-
+    data: {
       email: '',
       password: '',
-
+    },
     errors: {},
   };
 
@@ -20,18 +20,18 @@ export default class LoginForm extends Component {
     const { name, value } = e.target;
     this.setState({
       data: {
-        ...this.state,
+        ...this.state.data,
         [name]: value,
       },
     });
   };
   handleSubmit = evt => {
     evt.preventDefault();
-    const errors = this.validate(this.state);
-
+    const errors = this.validate(this.state.data);
+    console.log(this.state);
     this.setState({ errors }, () => {
       if (Object.keys(errors).length === 0) {
-        this.props.onSubmit(this.state);
+        this.props.onSubmit(this.state.data);
       }
     });
   };
@@ -39,7 +39,7 @@ export default class LoginForm extends Component {
     const errors = {};
 
     if (!data.password) {
-      errors.password = "Can't be a password";
+      errors.password = "This is not a valid password";
     }
 
     if (!Validator.isEmail(data.email)) {
@@ -50,7 +50,7 @@ export default class LoginForm extends Component {
   };
 
   render() {
-    const { email, password, errors } = this.state;
+    const { data: {email, password}, errors } = this.state;
     return (
       <form className={styles.form} onSubmit={this.handleSubmit}>
         <ul className={styles.list}>
