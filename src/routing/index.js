@@ -1,51 +1,51 @@
-import Register from 'pages/Register';
-import Login from 'pages/Login';
-import Logout from 'pages/Logout';
-import Reset from 'pages/Reset';
-import Profile from 'pages/Profile';
-import Habits from 'pages/Habits';
+import RegisterPage from 'components/pages/RegisterPage';
+import LoginPage from 'components/pages/LoginPage';
+import LogoutPage from 'components/pages/LogoutPage';
+import ResetPage from 'components/pages/ResetPage';
+import ProfilePage from 'components/pages/ProfilePage';
+import DashboardPage from 'components/pages/DashboardPage';
 
 export const routes = {
-  register: '/account/register',
-  login: '/account/login',
-  logout: '/account/logout',
-  reset: '/account/reset',
-  profile: '/account/profile',
-  habits: '/habits',
+  login: '/login',
+  register: '/register',
+  logout: '/logout',
+  reset: '/reset',
+  profile: '/profile',
+  dashboard: '/dashboard',
 };
 
 const routerConfig = {
   public: [
     {
-      path: routes.register,
-      component: Register,
-      redirectPath: routes.habits,
+      path: routes.login,
+      component: LoginPage,
+      redirectPath: routes.dashboard,
     },
     {
-      path: routes.login,
-      component: Login,
-      redirectPath: routes.habits,
+      path: routes.register,
+      component: RegisterPage,
+      redirectPath: routes.dashboard,
+    },
+    {
+      path: routes.reset,
+      component: ResetPage,
+      redirectPath: routes.login,
     },
   ],
   private: [
     {
       path: routes.logout,
-      component: Logout,
-      redirectPath: routes.login,
-    },
-    {
-      path: routes.reset,
-      component: Reset,
+      component: LogoutPage,
       redirectPath: routes.login,
     },
     {
       path: routes.profile,
-      component: Profile,
+      component: ProfilePage,
       redirectPath: routes.login,
     },
     {
-      path: routes.habits,
-      component: Habits,
+      path: routes.dashboard,
+      component: DashboardPage,
       redirectPath: routes.login,
     },
   ],

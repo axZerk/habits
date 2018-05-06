@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import withAuthContext from 'hoc/withAuthContext';
 import { routes } from 'routing';
 
-class Logout extends Component {
+class LogoutPage extends Component {
   componentDidMount() {
     const { isAuth, onLogout } = this.props;
 
@@ -17,4 +17,4 @@ class Logout extends Component {
   }
 }
 
-export default withAuthContext(Logout);
+export default withAuthContext(LogoutPage);
