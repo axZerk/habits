@@ -1,25 +1,26 @@
 import React from 'react';
-import NavItems from './NavItems';
+import { NavLink } from 'react-router-dom';
 import { routes } from 'routing';
 import styles from './styles.css';
 
-const navLinks = {
-  public: [
-    { path: routes.login, text: 'Log In' }
-  ],
-  private: [
-    { path: routes.habits, text: 'Habits' },
-    { path: routes.profile, text: 'Profile' },
-    { path: routes.logout, text: ' Log Out' },
-  ],
-};
+const navLinks = [
+  { path: routes.dashboard, text: 'Dashboard' },
+  { path: routes.profile, text: 'Profile' },
+  { path: routes.logout, text: ' Log Out' },
+];
 
-const Navigation = ({ isAuth }) => (
+const Navigation = () => (
   <ul className={styles.nav}>
-    {isAuth
-      ? <NavItems items={navLinks.private} />
-      : <NavItems items={navLinks.public} />
-    }
+    {navLinks.map(({ path, text }) => (
+      <li key={path}>
+        <NavLink
+          className={styles.link}
+          activeClassName={styles.active}
+          to={path}>
+          {text}
+        </NavLink>
+      </li>
+    ))}
   </ul>
 );
 

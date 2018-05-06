@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import withAuthContext from 'hoc/withAuthContext';
 import { routes } from 'routing';
 
-class Login extends Component {
+class LoginPage extends Component {
   state = {
     redirectToReferrer: false,
   };
@@ -18,7 +18,7 @@ class Login extends Component {
     const { redirectToReferrer } = this.state;
     // TODO: причесать получение пути
     const { from } = this.props.location.state || {
-      from: { pathname: routes.habits },
+      from: { pathname: routes.dashboard },
     };
 
     // TODO: причесать перенаправление на страницу с которой пришли
@@ -36,4 +36,4 @@ class Login extends Component {
   }
 }
 
-export default withAuthContext(Login);
+export default withAuthContext(LoginPage);

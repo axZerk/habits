@@ -4,7 +4,7 @@ import PrivateRoute from '../PrivateRoute';
 import AppBar from 'components/AppBar';
 import routerConfig from 'routing';
 import { AuthContext } from 'context';
-import { routes } from '../../routing';
+import { routes } from 'routing';
 
 export default class App extends Component {
   state = {
@@ -33,7 +33,7 @@ export default class App extends Component {
           onLogin: this.handleLogin,
           onLogout: this.handleLogout,
         }}>
-        <AppBar />
+        {isAuth && <AppBar />}
         <Switch>
           {routerConfig.public.map(route => (
             <Route
