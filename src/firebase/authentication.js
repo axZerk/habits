@@ -40,7 +40,5 @@ export const initAuthStateListener = ({ onSignIn, onSignOut }) =>
     } else {
       console.log('[AUTH] => user logged out!');
       onSignOut();
-      // FIXME: Не уверен что тут нужны эти вызовы
-      // doSignOut().then(() => onSignOut());
     }
   });

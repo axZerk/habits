@@ -4,35 +4,42 @@ import PrivateRoute from '../PrivateRoute';
 import AppBar from '../AppBar';
 import routerConfig, { routes } from '../../routing';
 import { AuthContext } from '../../context';
+import { initAuthStateListener } from '../../firebase';
+
+const initialState = {
+  email: null,
+  displayName: null,
+  isLoading: false,
+  userId: null,
+  isAuth: false,
+};
 
 export default class App extends Component {
-  state = {
-    email: null,
-    displayName: null,
-    isLoading: false,
-    userId: null,
-    isAuth: false,
-  };
+  state = { ...initialState };
 
-  handleLogin = () => {
-    console.log('Logged In!');
-    this.setState({ isAuth: true });
-  };
+  componentDidMount() {
+    initAuthStateListener({
+      onSignIn: this.handleLogin,
+      onSignOut: this.handleLogout,
+    });
+  }
 
-  handleLogout = () => {
-    this.setState({ isAuth: false });
-  };
+  handleLogin = user =>
+    this.setState({
+      isLoading: false,
+      userId: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      isAuth: true,
+    });
+
+  handleLogout = () => this.setState({ ...initialState });
 
   render() {
     const { isAuth } = this.state;
 
     return (
-      <AuthContext.Provider
-        value={{
-          ...this.state,
-          onLogin: this.handleLogin,
-          onLogout: this.handleLogout,
-        }}>
+      <AuthContext.Provider value={{ ...this.state }}>
         {isAuth && <AppBar />}
         <Switch>
           {routerConfig.public.map(route => (
