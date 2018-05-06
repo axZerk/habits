@@ -28,7 +28,6 @@ export default class LoginForm extends Component {
   handleSubmit = evt => {
     evt.preventDefault();
     const errors = this.validate(this.state.data);
-    console.log(this.state);
     this.setState({ errors }, () => {
       if (Object.keys(errors).length === 0) {
         this.props.onSubmit(this.state.data);
