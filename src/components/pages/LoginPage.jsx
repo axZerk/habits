@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import withAuthContext from '../../hoc/withAuthContext';
 import { routes } from '../../routing';
 
 class LoginPage extends Component {
+  static propTypes = {
+    onLogin: PropTypes.func.isRequired,
+    location: PropTypes.shape.isRequired,
+    isAuth:PropTypes.bool.isRequired,
+  };
+
   state = {
     redirectToReferrer: false,
   };
