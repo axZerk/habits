@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Validator from 'validator';
 import styles from './styles.css';
 
-export default class LoginForm extends Component {
+export default class RegisterForm extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
   };
@@ -12,7 +12,7 @@ export default class LoginForm extends Component {
     data: {
       email: '',
       password: '',
-      displayName: '',
+      name: '',
     },
     errors: {},
   };
@@ -64,21 +64,21 @@ export default class LoginForm extends Component {
 
   render() {
     const {
-      data: { email, password, displayName },
+      data: { email, password, name },
     } = this.state;
 
     return (
       <form onSubmit={this.handleSubmit} className={styles.form}>
         <ul className={styles.list}>
           <li className={styles.item}>
-            <label htmlFor="displayName">Email</label>
+            <label htmlFor="name">Email</label>
             <input
               type="text"
               id="displayName"
-              name="displayName"
+              name="name"
               className={styles.input}
               placeholder="Enter your real name"
-              value={displayName}
+              value={name}
               onChange={this.handleChange}
             />
           </li>
@@ -108,7 +108,7 @@ export default class LoginForm extends Component {
             />
           </li>
         </ul>
-        <button className={styles.button}>Sign In</button>
+        <button className={styles.button}>Register</button>
       </form>
     );
   }
