@@ -6,18 +6,19 @@ import PropTypes from 'prop-types';
 // import { deleteHabitData } from '../../firebase';
 import styles from './styles.css';
 
-const HabitsList = ({ items }) => {
-  console.log('[HabitsList] items: ', items);
-
-  return (
-    <div className={styles.wrapper}>
-      {/* <DateField handleOpenModal={handleOpenModal} /> */}
-      {/* {Object.values(items).map((habit, idx) => {}
+const HabitsList = ({ items }) => (
+  <ul className={styles.wrapper}>
+    {Object.values(items).map(habit => (
+      <li key={habit.key}>
+        <p>{habit.title}</p>
+      </li>
+    ))}
+    {/* <DateField handleOpenModal={handleOpenModal} /> */}
+    {/* {Object.values(items).map((habit, idx) => {}
 
       )} */}
-    </div>
-  );
-};
+  </ul>
+);
 
 HabitsList.propTypes = {
   items: PropTypes.shape().isRequired,

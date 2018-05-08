@@ -1,11 +1,11 @@
 import { habitsDbRef } from './config';
 
 export const writeHabitData = (userId, habit) => {
-  const habitKey = habitsDbRef.child(`${userId}/${habit.category}`).push().key;
-  const newHabit = { ...habit, habitKey };
+  const key = habitsDbRef.child(`${userId}/${habit.category}`).push().key;
+  const newHabit = { ...habit, key };
 
   return habitsDbRef
-    .child(`${userId}/${habit.category}/${habitKey}`)
+    .child(`${userId}/${habit.category}/${key}`)
     .set(newHabit)
     // .then(() => {
     //   habitsDbRef.child(`${userId}/habitsCounter`).once('value', snap => {
