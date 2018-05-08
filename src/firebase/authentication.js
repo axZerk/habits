@@ -1,13 +1,29 @@
 import { auth } from './config';
 
 /**
+ * Create a user in database
+ *
+ * @param {Object} user
+ */
+// const createUserInDb = () => {};
+
+/**
  * Create new user on firebase
  *
  * @param {Object} { email, password }
  */
-export const createUserWithEmailAndPassword = ({ email, password }) =>
+export const createUserWithEmailAndPassword = ({ email, password, name }) =>
   auth
     .createUserWithEmailAndPassword(email, password)
+    .then(user => user.updateProfile({ displayName: name, id: user.uid }))
+    // TODO: сделать добавление пользователя в БД
+    // .then(user => {
+    //   const userRef = usersDbRef.child(`${user.uid}`);
+
+    //   userRef
+    //     .set({ name, email })
+    //     .catch(error => this.setState({ error: error.message }));
+    // })
     .catch(error => console.error(error));
 
 /**

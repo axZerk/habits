@@ -34,7 +34,7 @@ export default class RegisterForm extends Component {
 
     this.setState({ errors }, () => {
       if (Object.keys(errors).length === 0) {
-        this.props.onSubmit(this.state);
+        this.props.onSubmit(this.state.data);
       }
     });
   };
@@ -48,6 +48,7 @@ export default class RegisterForm extends Component {
       password.length < 5 ||
       password.length > 32
     );
+
     if (!checkPassword) {
       errors.password = 'This is not a valid password';
     }
@@ -55,7 +56,8 @@ export default class RegisterForm extends Component {
     if (!Validator.isEmail(data.email)) {
       errors.email = 'Invalid email format';
     }
-    if (!data.displayName) {
+
+    if (!data.name) {
       errors.name = 'Enter your real name';
     }
 
@@ -71,13 +73,12 @@ export default class RegisterForm extends Component {
       <form onSubmit={this.handleSubmit} className={styles.form}>
         <ul className={styles.list}>
           <li className={styles.item}>
-            <label htmlFor="name">Email</label>
+            <label htmlFor="name">Name</label>
             <input
               type="text"
-              id="displayName"
               name="name"
               className={styles.input}
-              placeholder="Enter your real name"
+              placeholder="Enter your profile name"
               value={name}
               onChange={this.handleChange}
             />
@@ -87,7 +88,6 @@ export default class RegisterForm extends Component {
             <label htmlFor="email">Email</label>
             <input
               type="email"
-              id="email"
               name="email"
               className={styles.input}
               placeholder="example@example.com"
@@ -99,7 +99,6 @@ export default class RegisterForm extends Component {
             <label htmlFor="password">Password</label>
             <input
               type="password"
-              id="password"
               name="password"
               className={styles.input}
               placeholder="Make it secure"
