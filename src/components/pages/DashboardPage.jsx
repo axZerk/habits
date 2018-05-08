@@ -1,8 +1,12 @@
 import React from 'react';
+import Sidebar from '../DashboardSidebar';
+import HabitsHategoriesList from '../HabitsHategoriesList';
 
 const DashboardPage = () => (
   <div>
-    <h1>Dashboard Page</h1>
+    <Sidebar>
+      <HabitsHategoriesList />
+    </Sidebar>
   </div>
 );
 
