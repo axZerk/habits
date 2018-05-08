@@ -7,6 +7,7 @@ export const writeHabitData = (userId, habit) => {
   return habitsDbRef
     .child(`${userId}/${habit.category}/${key}`)
     .set(newHabit)
+    // TODO: это что такое?
     // .then(() => {
     //   habitsDbRef.child(`${userId}/habitsCounter`).once('value', snap => {
     //     console.log(snap);

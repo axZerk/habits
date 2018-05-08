@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 // import { deleteHabitData } from '../../firebase';
 import styles from './styles.css';
 
+// TODO: доделать сам habit
 const HabitsList = ({ items }) => (
   <ul className={styles.wrapper}>
     {Object.values(items).map(habit => (

@@ -23,21 +23,18 @@ class DashboardPage extends Component {
   };
 
   componentDidMount() {
-    this.getHabits();
-  }
-
-  componentDidUpdate(nextProps) {
-    if (nextProps.location.search !== this.props.location.search) {
-      this.getHabits();
-      console.log('oh mah god');
-    }
-  }
-
-  getHabits = () => {
     this.getHabitsByCategory();
     this.initChildAddedListener();
     this.initChildRemovedListener();
-  };
+  }
+
+  // TODO: показать и рассказать зачем это нужно и почему это классно
+  componentDidUpdate(nextProps) {
+    if (nextProps.location.search !== this.props.location.search) {
+      this.getHabitsByCategory();
+      console.log('oh mah god, we got habitz-z-z-z!');
+    }
+  }
 
   // TODO: везде убрать family по умолчанию и завязать на параметры query-string
   // TODO: перенести в firebase, походу когда что угодно делаем тянет
@@ -59,14 +56,7 @@ class DashboardPage extends Component {
 
     habitsDbRef.child(`${userId}/${params.category}`).once('value', snap => {
       const value = snap.val();
-
-      console.log(value);
-
-      if (value) {
-        this.setState({ habits: value });
-      } else {
-        this.setState({ habits: {} });
-      }
+      this.setState({ habits: value && {} });
     });
   };
 
@@ -81,13 +71,11 @@ class DashboardPage extends Component {
       .limitToLast(1)
       .on('child_added', snap => {
         const value = snap.val();
+        const key = snap.key;
 
         if (value) {
           this.setState(prevState => ({
-            habits: {
-              ...prevState.habits,
-              [snap.key]: value,
-            },
+            habits: { ...prevState.habits, [key]: value },
           }));
         }
       });
@@ -102,13 +90,13 @@ class DashboardPage extends Component {
       .child(`${userId}/${params.category}`)
       .on('child_removed', snap => {
         const value = snap.val();
+        const key = snap.key;
+
         if (value) {
           this.setState(prevState => {
-            const { [snap.key]: _, ...rest } = prevState.habits;
+            const { [key]: _, ...habits } = prevState.habits;
 
-            return {
-              habits: rest,
-            };
+            return { habits };
           });
         }
       });
@@ -119,8 +107,6 @@ class DashboardPage extends Component {
 
   render() {
     const { showModal, habits } = this.state;
-
-    console.log(this.props.location.search);
 
     return (
       <div>
