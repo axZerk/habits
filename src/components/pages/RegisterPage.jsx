@@ -8,7 +8,9 @@ import { createUserWithEmailAndPassword } from '../../firebase';
 
 class RegisterPage extends Component {
   static propTypes = {
-    location: PropTypes.shape.isRequired,
+    location: PropTypes.shape({
+      state: PropTypes.shape.isRequired,
+    }).isRequired,
     isAuth: PropTypes.bool.isRequired,
   };
 

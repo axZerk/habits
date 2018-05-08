@@ -1,13 +1,6 @@
 import { auth } from './config';
 
 /**
- * Create a user in database
- *
- * @param {Object} user
- */
-// const createUserInDb = () => {};
-
-/**
  * Create new user on firebase
  *
  * @param {Object} { email, password }

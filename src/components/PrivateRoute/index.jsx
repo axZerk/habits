@@ -19,11 +19,15 @@ const PrivateRoute = ({
   />
 );
 
+PrivateRoute.defaultProps = {
+  location: {}
+};
+
 PrivateRoute.propTypes = {
   component: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
   redirectTo: PropTypes.string.isRequired,
-  location: PropTypes.shape.isRequired,
+  location: PropTypes.shape(),
 };
 
 export default PrivateRoute;
