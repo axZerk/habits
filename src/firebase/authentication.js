@@ -1,4 +1,4 @@
-import { auth } from './config';
+import { auth, usersDbRef } from './config';
 
 /**
  * Create new user on firebase
@@ -8,15 +8,17 @@ import { auth } from './config';
 export const createUserWithEmailAndPassword = ({ email, password, name }) =>
   auth
     .createUserWithEmailAndPassword(email, password)
-    .then(user => user.updateProfile({ displayName: name, id: user.uid }))
-    // TODO: сделать добавление пользователя в БД
-    // .then(user => {
-    //   const userRef = usersDbRef.child(`${user.uid}`);
+    .then(user =>
+      user.updateProfile({ displayName: name, id: user.uid }).then(() => user),
+    )
+    // FIXME: мне не нравится как добавляется
+    .then(user => {
+      const userRef = usersDbRef.child(`${user.uid}`);
 
-    //   userRef
-    //     .set({ name, email })
-    //     .catch(error => this.setState({ error: error.message }));
-    // })
+      userRef
+        .set({ name, email })
+        .catch(error => this.setState({ error: error.message }));
+    })
     .catch(error => console.error(error));
 
 /**

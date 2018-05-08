@@ -4,7 +4,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import categories from './categories';
 import styles from './styles.css';
 
-const HabitsHategoriesList = ({ match }) => (
+const HabitsCategories = ({ match }) => (
   <ul className={styles.category__wrapper}>
     {categories.map(({ name, text }) => (
       <li key={name} className={styles.category__item}>
@@ -22,9 +22,9 @@ const HabitsHategoriesList = ({ match }) => (
   </ul>
 );
 
-HabitsHategoriesList.propTypes = {
+HabitsCategories.propTypes = {
   match: PropTypes.shape().isRequired,
   // habitsCounter,
 };
 
-export default withRouter(HabitsHategoriesList);
+export default withRouter(HabitsCategories);
