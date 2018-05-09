@@ -70,35 +70,18 @@ class DashboardPage extends Component {
     }
   }
 
-  onHabitAdded = snap => {
-    const value = snap.val();
-    const key = snap.key;
+  onHabitAdded = (value, key) =>
+    this.setState(prevState => ({
+      habits: { ...prevState.habits, [key]: value },
+    }));
 
-    if (value) {
-      this.setState(prevState => ({
-        habits: { ...prevState.habits, [key]: value },
-      }));
-    }
-  };
+  onHabitRemoved = (value, key) =>
+    this.setState(prevState => {
+      const { [key]: _, ...habits } = prevState.habits;
+      return { habits };
+    });
 
-  onHabitRemoved = snap => {
-    const value = snap.val();
-    const key = snap.key;
-
-    if (value) {
-      this.setState(prevState => {
-        const { [key]: _, ...habits } = prevState.habits;
-
-        return { habits };
-      });
-    }
-  };
-
-  onGetHabits = snap => {
-    const value = snap.val();
-
-    this.setState({ habits: value || {} });
-  };
+  onGetHabits = value => this.setState({ habits: value });
 
   // TODO: перенести в HabitEditor
   handleOpenModal = () => this.setState({ showModal: true });
