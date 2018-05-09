@@ -1,0 +1,46 @@
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.counter {
+  display: block;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: #3f51b5;
+  color: #ffffff;
+  line-height: 30px;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  line-height: 72px;
+  font-size: 24px;
+  color: #757575;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link {
+  display: block;
+  text-decoration: none;
+  color: #cacaca;
+  flex-grow: 1;
+  padding: 15px 0;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.active {
+  color: #3f51b5;
+  font-weight: 500;
+}

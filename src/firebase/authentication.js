@@ -1,5 +1,8 @@
-import { auth } from './config';
+import { auth, usersDbRef } from './config';
 
+const throwError = error => {
+  throw new Error(`Error: ${error}`);
+};
 /**
  * Create new user on firebase
  *
@@ -8,16 +11,18 @@ import { auth } from './config';
 export const createUserWithEmailAndPassword = ({ email, password, name }) =>
   auth
     .createUserWithEmailAndPassword(email, password)
-    .then(user => user.updateProfile({ displayName: name, id: user.uid }))
-    // TODO: сделать добавление пользователя в БД
-    // .then(user => {
-    //   const userRef = usersDbRef.child(`${user.uid}`);
+    .then(user =>
+      user.updateProfile({ displayName: name, id: user.uid }).then(() => user),
+    )
+    // FIXME: мне не нравится как добавляется
+    .then(user => {
+      const userRef = usersDbRef.child(`${user.uid}`);
 
-    //   userRef
-    //     .set({ name, email })
-    //     .catch(error => this.setState({ error: error.message }));
-    // })
-    .catch(error => console.error(error));
+      userRef
+        .set({ name, email })
+        .catch(error => this.setState({ error: error.message }));
+    })
+    .catch(throwError);
 
 /**
  * Sign in existing user
@@ -25,16 +30,13 @@ export const createUserWithEmailAndPassword = ({ email, password, name }) =>
  * @param {Object} { email, password }
  */
 export const signInWithEmailAndPassword = ({ email, password }) =>
-  auth
-    .signInWithEmailAndPassword(email, password)
-    .catch(error => console.error(error));
+  auth.signInWithEmailAndPassword(email, password).catch(throwError);
 
 /**
  * Sign user out
  *
  */
-export const signOut = () =>
-  auth.signOut().catch(error => console.error(error));
+export const signOut = () => auth.signOut().catch(throwError);
 
 /**
  * Start authentication listening process
@@ -44,10 +46,8 @@ export const signOut = () =>
 export const initAuthStateListener = ({ onSignIn, onSignOut }) =>
   auth.onAuthStateChanged(user => {
     if (user) {
-      console.log('[AUTH] => user logged in!');
       onSignIn(user);
     } else {
-      console.log('[AUTH] => user logged out!');
       onSignOut();
     }
   });
