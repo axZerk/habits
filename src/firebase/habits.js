@@ -54,7 +54,11 @@ export const updateHabit = (userId, category, habitId, updatedData) =>
   habitsDbRef.child(`${userId}/${category}/${habitId}`).update(updatedData);
 
 export const getHabitsByCategory = (userId, category, callback) => {
-  habitsDbRef.child(`${userId}/${category}`).once('value', callback);
+  habitsDbRef.child(`${userId}/${category}`).once('value', snap => {
+    const value = snap.val() || {};
+
+    callback(value);
+  });
 
   // TODO: разобраться что это
   // habitsDbRef.child(`${userId}/habitsCounter`).once('value', snap => {
@@ -73,10 +77,24 @@ export const onChildAddedListener = (userId, category, callback) =>
     .child(`${userId}/${category}`)
     .orderByKey()
     .limitToLast(1)
-    .on('child_added', callback);
+    .on('child_added', snap => {
+      const value = snap.val();
+      const key = snap.key;
+
+      if (value) {
+        callback(value, key);
+      }
+    });
 
 export const onChildRemovedListener = (userId, category, callback) =>
-  habitsDbRef.child(`${userId}/${category}`).on('child_removed', callback);
+  habitsDbRef.child(`${userId}/${category}`).on('child_removed', snap => {
+    const value = snap.val();
+    const key = snap.key;
+
+    if (value) {
+      callback(value, key);
+    }
+  });
 
 export const getAllAndJoin = userId =>
   habitsDbRef.child(userId).once('value', snap => snap.val());
