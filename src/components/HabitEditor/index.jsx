@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-import CategoriesList from './CategoriesList';
+import Categories from './Categories';
 import DaysList from './DaysList';
-import { auth, writeHabitData } from '../../firebase';
-import categories from './categories';
+import withAuthContext from '../../hoc/withAuthContext';
+import { addHabit } from '../../firebase';
 import styles from './styles.css';
 
 ReactModal.setAppElement('#root');
@@ -29,10 +29,12 @@ const initialState = {
   },
 };
 
-export default class CreateHabitModal extends Component {
+class HabitEditor extends Component {
   static propTypes = {
-    onCloseModal: PropTypes.func.isRequired,
-    showModal: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    onOpen: PropTypes.func.isRequired,
+    isVisible: PropTypes.bool.isRequired,
+    userId: PropTypes.string.isRequired,
   };
 
   state = {
@@ -132,63 +134,73 @@ export default class CreateHabitModal extends Component {
     // }
 
     const { title, category, startDate, duration } = this.state;
+    const { userId, onClose } = this.props;
 
     // form is valid! We can parse and submit data
-    const newHabit = {
+    const habit = {
       title,
       category,
       startDate,
       duration,
     };
 
-    writeHabitData(auth.currentUser.uid, newHabit)
+    addHabit(userId, habit)
       .then(() => this.setState({ ...initialState }))
-      .then(this.props.onCloseModal);
+      .then(onClose);
   };
 
   render() {
-    const { showModal, onCloseModal } = this.props;
+    const { category, datePickerStartDate, customDays } = this.state;
+    const { isVisible, onOpen, onClose } = this.props;
 
     return (
-      <ReactModal
-        isOpen={showModal}
-        contentLabel="onRequestClose Example"
-        shouldCloseOnOverlayClick={false}
-        className={styles.modal}
-        overlayClassName={styles.overlay}>
-        <button className={styles.btnClose} onClick={onCloseModal}>
-          &times;
+      <Fragment>
+        <button onClick={onOpen} className={styles.button}>
+          Добавить привычку
         </button>
-        <h4 className={styles.header}>Новая привычка</h4>
 
-        <form className={styles.form} noValidate onSubmit={this.handleSubmit}>
-          <input
-            className={styles.input}
-            placeholder="Название"
-            required
-            onChange={this.handleTitleChange}
-          />
-          <CategoriesList
-            items={categories}
-            activeCategory={this.state.category}
-            onClick={this.handleCategoryChange}
-          />
-          <label className={styles.label} htmlFor="start_day">
-            Начало привычки
-            <DatePicker
-              selected={this.state.datePickerStartDate}
-              onChange={this.handleStartDateChange}
-              locale="en-gb"
-              placeholderText="Weeks start on Monday"
-              name="start_day"
-            />
-          </label>
-          {this.state.customDays && <DaysList selectDay={this.selectDay} />}
-          <button type="submit" className={styles.btnSubmit}>
-            Создать
+        <ReactModal
+          isOpen={isVisible}
+          contentLabel="onRequestClose Example"
+          shouldCloseOnOverlayClick={false}
+          className={styles.modal}
+          overlayClassName={styles.overlay}>
+          <button className={styles.btnClose} onClick={onClose}>
+            &times;
           </button>
-        </form>
-      </ReactModal>
+          <h4 className={styles.header}>Новая привычка</h4>
+
+          <form className={styles.form} noValidate onSubmit={this.handleSubmit}>
+            <input
+              className={styles.input}
+              placeholder="Название"
+              required
+              onChange={this.handleTitleChange}
+            />
+            <Categories
+              activeCategory={category}
+              onClick={this.handleCategoryChange}
+            />
+            <label className={styles.label} htmlFor="start_day">
+              Начало привычки
+              <DatePicker
+                selected={datePickerStartDate}
+                onChange={this.handleStartDateChange}
+                locale="en-gb"
+                placeholderText="Weeks start on Monday"
+                name="start_day"
+              />
+            </label>
+            {/* TODO: что это за DaysList и что делает customdays */}
+            {customDays && <DaysList selectDay={this.selectDay} />}
+            <button type="submit" className={styles.btnSubmit}>
+              Создать
+            </button>
+          </form>
+        </ReactModal>
+      </Fragment>
     );
   }
 }
+
+export default withAuthContext(HabitEditor);

@@ -113,3 +113,20 @@ ul {
   color: #ff5722;
   cursor: pointer;
 }
+
+.button {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  border: none;
+  color: #ffffff;
+  padding: 10px 20px;
+  font-size: 20px;
+  background-color: #ef5350;
+  transition: box-shadow 0.1s linear;
+  cursor: pointer;
+}
+
+.button:hover {
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.3);
+}

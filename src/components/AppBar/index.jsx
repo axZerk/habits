@@ -4,7 +4,9 @@ import styles from './styles.css';
 
 const AppBar = () => (
   <header className={styles.header}>
-    <Navigation />
+    <nav className={styles.container}>
+      <Navigation />
+    </nav>
   </header>
 );
 

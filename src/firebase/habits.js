@@ -1,29 +1,35 @@
 import { habitsDbRef } from './config';
 
-export const writeHabitData = (userId, habit) => {
-  const key = habitsDbRef.child(`${userId}/${habit.category}`).push().key;
-  const newHabit = { ...habit, key };
-
-  return habitsDbRef
-    .child(`${userId}/${habit.category}/${key}`)
-    .set(newHabit)
-    // TODO: это что такое?
-    // .then(() => {
-    //   habitsDbRef.child(`${userId}/habitsCounter`).once('value', snap => {
-    //     console.log(snap);
-    //     const counter = snap.val();
-    //     const categoryCount = counter[habit.category];
-
-    //     habitsDbRef.child(`${userId}/habitsCounter`).set({
-    //       ...counter,
-    //       [habit.category]: categoryCount + 1,
-    //     });
-    //   });
-    // })
-    .catch(err => console.log(err));
+const throwError = error => {
+  throw new Error(`Error: ${error}`);
 };
 
-export const deleteHabitData = (userId, category, habitId) =>
+export const addHabit = (userId, habit) => {
+  const id = habitsDbRef.child(`${userId}/${habit.category}`).push().key;
+  const newHabit = { ...habit, id };
+
+  return (
+    habitsDbRef
+      .child(`${userId}/${habit.category}/${id}`)
+      .set(newHabit)
+      // TODO: это что такое?
+      // .then(() => {
+      //   habitsDbRef.child(`${userId}/habitsCounter`).once('value', snap => {
+      //     console.log(snap);
+      //     const counter = snap.val();
+      //     const categoryCount = counter[habit.category];
+
+      //     habitsDbRef.child(`${userId}/habitsCounter`).set({
+      //       ...counter,
+      //       [habit.category]: categoryCount + 1,
+      //     });
+      //   });
+      // })
+      .catch(throwError)
+  );
+};
+
+export const deleteHabit = (userId, category, habitId) =>
   habitsDbRef
     .child(`${userId}/${habitId}`)
     .remove()
@@ -40,9 +46,9 @@ export const deleteHabitData = (userId, category, habitId) =>
         }
       }),
     )
-    .catch(err => console.log(err));
+    .catch(throwError);
 
-export const updateHabitData = (userId, category, habitId, updatedData) =>
+export const updateHabit = (userId, category, habitId, updatedData) =>
   habitsDbRef.child(`${userId}/${category}/${habitId}`).update(updatedData);
 
 export const getDataByCategory = (userId, category) =>

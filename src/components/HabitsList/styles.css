@@ -1,5 +1,7 @@
-.wrapper{
-    box-shadow: 1px 2px 5px 1px gray;
-    background-color: white;
-    padding: 15px;
+.list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  box-shadow: 1px 2px 5px 1px gray;
+  background-color: #ffffff;
 }

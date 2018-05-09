@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './styles.css';
 
+// FIXME: а что это делает?
 const DaysList = ({ selectDay }) => {
   const dayPick = evt => {
     evt.preventDefault();

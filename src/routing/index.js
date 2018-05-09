@@ -19,34 +19,31 @@ const routerConfig = {
     {
       path: routes.login,
       component: LoginPage,
-      redirectPath: routes.dashboard,
     },
     {
       path: routes.register,
       component: RegisterPage,
-      redirectPath: routes.dashboard,
     },
     {
       path: routes.reset,
       component: ResetPage,
-      redirectPath: routes.login,
     },
   ],
   private: [
     {
       path: routes.logout,
       component: LogoutPage,
-      redirectPath: routes.login,
+      redirectTo: routes.login,
     },
     {
       path: routes.profile,
       component: ProfilePage,
-      redirectPath: routes.login,
+      redirectTo: routes.login,
     },
     {
       path: routes.dashboard,
       component: DashboardPage,
-      redirectPath: routes.login,
+      redirectTo: routes.login,
     },
   ],
 };

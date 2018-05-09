@@ -1,12 +1,13 @@
 /* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
+import categories from './categories';
 import styles from './styles.css';
 
-const CategoriesList = ({ items, onClick, activeCategory }) => (
+const Categories = ({ onClick, activeCategory }) => (
   <ul className={styles.list}>
-    {items.map(item => (
-      <li key={item.id} className={styles.item}>
+    {categories.map(item => (
+      <li key={item.category} className={styles.item}>
         <input
           className={styles.radio}
           type="radio"
@@ -33,16 +34,9 @@ const CategoriesList = ({ items, onClick, activeCategory }) => (
   </ul>
 );
 
-CategoriesList.propTypes = {
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      category: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-    }).isRequired,
-  ).isRequired,
+Categories.propTypes = {
   onClick: PropTypes.func.isRequired,
   activeCategory: PropTypes.string.isRequired,
 };
 
-export default CategoriesList;
+export default Categories;

@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import HabitsCategories from '../HabitsCategories';
 import styles from './styles.css';
 
-const Sidebar = props => (
+const DashboardSidebar = ({ title }) => (
   <section className={styles.sidebar}>
-    <h2 className={styles.title}>Привычки</h2>
-    {props.children}
+    <h2 className={styles.title}>{title}</h2>
+    <HabitsCategories />
   </section>
 );
 
-Sidebar.propTypes = {
-  children: PropTypes.element.isRequired,
+DashboardSidebar.propTypes = {
+  title: PropTypes.string.isRequired,
 };
 
-export default Sidebar;
+export default DashboardSidebar;

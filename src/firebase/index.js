@@ -8,9 +8,9 @@ export {
 } from './authentication';
 
 export {
-  writeHabitData,
-  deleteHabitData,
-  updateHabitData,
+  addHabit,
+  deleteHabit,
+  updateHabit,
   getDataByCategory,
   getAllAndJoin,
 } from './habits';

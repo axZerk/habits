@@ -1,5 +1,8 @@
 import { auth, usersDbRef } from './config';
 
+const throwError = error => {
+  throw new Error(`Error: ${error}`);
+};
 /**
  * Create new user on firebase
  *
@@ -19,7 +22,7 @@ export const createUserWithEmailAndPassword = ({ email, password, name }) =>
         .set({ name, email })
         .catch(error => this.setState({ error: error.message }));
     })
-    .catch(error => console.error(error));
+    .catch(throwError);
 
 /**
  * Sign in existing user
@@ -27,16 +30,13 @@ export const createUserWithEmailAndPassword = ({ email, password, name }) =>
  * @param {Object} { email, password }
  */
 export const signInWithEmailAndPassword = ({ email, password }) =>
-  auth
-    .signInWithEmailAndPassword(email, password)
-    .catch(error => console.error(error));
+  auth.signInWithEmailAndPassword(email, password).catch(throwError);
 
 /**
  * Sign user out
  *
  */
-export const signOut = () =>
-  auth.signOut().catch(error => console.error(error));
+export const signOut = () => auth.signOut().catch(throwError);
 
 /**
  * Start authentication listening process
@@ -46,10 +46,8 @@ export const signOut = () =>
 export const initAuthStateListener = ({ onSignIn, onSignOut }) =>
   auth.onAuthStateChanged(user => {
     if (user) {
-      console.log('[AUTH] => user logged in!');
       onSignIn(user);
     } else {
-      console.log('[AUTH] => user logged out!');
       onSignOut();
     }
   });

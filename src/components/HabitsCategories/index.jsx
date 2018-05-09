@@ -4,6 +4,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import categories from './categories';
 import styles from './styles.css';
 
+// TODO: HabitsCoutner привести в порядок
 const HabitsCategories = ({ match }) => (
   <ul className={styles.category__wrapper}>
     {categories.map(({ name, text }) => (
@@ -12,8 +13,7 @@ const HabitsCategories = ({ match }) => (
           to={{
             pathname: `${match.url}`,
             search: `?category=${name}`,
-          }}
-          onClick={() => console.log('click')}>
+          }}>
           # {text}
         </NavLink>
         {/* <span className={styles.counter}>{habitsCounter[name]}</span> */}

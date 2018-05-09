@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
-import Sidebar from '../DashboardSidebar';
-import HabitsCategories from '../HabitsCategories';
-import HabitsList from '../HabitsList';
-import CreateHabitBtn from '../CreateHabitBtn';
-import CreateHabitModal from '../CreateHabitModal';
-import withAuthContext from '../../hoc/withAuthContext';
-import { habitsDbRef } from '../../firebase';
+import DashboardSidebar from '../../DashboardSidebar';
+import HabitsList from '../../HabitsList';
+import HabitEditor from '../../HabitEditor';
+import withAuthContext from '../../../hoc/withAuthContext';
+import { habitsDbRef } from '../../../firebase';
+import styles from './styles.css';
 
 class DashboardPage extends Component {
   static propTypes = {
@@ -29,9 +28,12 @@ class DashboardPage extends Component {
   }
 
   // TODO: показать и рассказать зачем это нужно и почему это классно
+  // подумать как не вешать слушателя при изменении параметра, сделать универсального
   componentDidUpdate(nextProps) {
     if (nextProps.location.search !== this.props.location.search) {
       this.getHabitsByCategory();
+      this.initChildAddedListener();
+      this.initChildRemovedListener();
       console.log('oh mah god, we got habitz-z-z-z!');
     }
   }
@@ -39,6 +41,7 @@ class DashboardPage extends Component {
   // TODO: везде убрать family по умолчанию и завязать на параметры query-string
   // TODO: перенести в firebase, походу когда что угодно делаем тянет
   // Раньше было initOnceOnValueListener
+  // вместо callback можно метод компонента передавать и там все делать, хорошая идея!
   getHabitsByCategory = () => {
     const { userId, location } = this.props;
     const params = queryString.parse(location.search);
@@ -56,7 +59,8 @@ class DashboardPage extends Component {
 
     habitsDbRef.child(`${userId}/${params.category}`).once('value', snap => {
       const value = snap.val();
-      this.setState({ habits: value && {} });
+
+      this.setState({ habits: value || {} });
     });
   };
 
@@ -109,18 +113,19 @@ class DashboardPage extends Component {
     const { showModal, habits } = this.state;
 
     return (
-      <div>
-        <Sidebar>
-          <HabitsCategories />
-        </Sidebar>
-        <HabitsList items={habits} />
-        <CreateHabitBtn onClick={this.handleOpenModal} />
-        {showModal && (
-          <CreateHabitModal
-            onCloseModal={this.handleCloseModal}
-            showModal={showModal}
-          />
-        )}
+      <div className={styles.page}>
+        <div className={styles.container}>
+          {/* TODO: когда сделаются счетчики то надо будет композиция для HabitsCtegories */}
+          <DashboardSidebar title="Привычки" />
+          <div className={styles.content}>
+            <HabitEditor
+              onOpen={this.handleOpenModal}
+              onClose={this.handleCloseModal}
+              isVisible={showModal}
+            />
+            <HabitsList items={habits} />
+          </div>
+        </div>
       </div>
     );
   }
