@@ -11,6 +11,8 @@ export {
   addHabit,
   deleteHabit,
   updateHabit,
-  getDataByCategory,
+  getHabitsByCategory,
+  onChildAddedListener,
+  onChildRemovedListener,
   getAllAndJoin,
 } from './habits';

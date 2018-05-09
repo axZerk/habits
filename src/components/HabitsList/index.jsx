@@ -1,27 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import HabitsListItem from '../HabitsListItem';
-// import Habit from '../Habit';
 // import DateField from '../DateField';
-// import { deleteHabitData } from '../../firebase';
+import withAuthContext from '../../hoc/withAuthContext';
+import { deleteHabit } from '../../firebase';
 import styles from './styles.css';
 
 // TODO: доделать сам habit
-const HabitsList = ({ items }) => {
-  const x = Object.values(items);
+const HabitsList = ({ items, userId }) => {
+  const values = Object.values(items);
 
   return (
     <ul className={styles.list}>
-      {x.map((item, idx) => (
+      {values.map((item, idx) => (
         <li key={item.id}>
           <HabitsListItem
+            userId={userId}
             index={idx}
-            // onDelete={deleteHabitData}
+            onDelete={deleteHabit}
             {...item}
           />
         </li>
       ))}
-      {x.length === 0 && <p>В этой категории еще нет привычек</p>}
+      {values.length === 0 && <p>В этой категории еще нет привычек</p>}
       {/* <DateField handleOpenModal={handleOpenModal} /> */}
     </ul>
   );
@@ -29,6 +30,7 @@ const HabitsList = ({ items }) => {
 
 HabitsList.propTypes = {
   items: PropTypes.shape().isRequired,
+  userId: PropTypes.string.isRequired,
 };
 
-export default HabitsList;
+export default withAuthContext(HabitsList);

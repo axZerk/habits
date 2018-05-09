@@ -11,6 +11,8 @@ export default class Habit extends Component {
     id: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    userId: PropTypes.string.isRequired,
     // duration, habitsDone
   };
 
@@ -38,15 +40,10 @@ export default class Habit extends Component {
   }
 
   onDeleteClick = () => {
-    console.log('click click');
-    // const target = evt.target;
-    // const { id } = this.props;
-    // const {
-    //   onDelete,
-    //   category ,
-    // } = this.props;
+    console.log('ding ding motherfucker');
+    const { id, onDelete, category, userId } = this.props;
 
-    // onDelete(auth.currentUser.uid, category, category + '/' + id);
+    onDelete(userId, category, id);
   };
 
   handleClick = () => {

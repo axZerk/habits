@@ -5,7 +5,12 @@ import DashboardSidebar from '../../DashboardSidebar';
 import HabitsList from '../../HabitsList';
 import HabitEditor from '../../HabitEditor';
 import withAuthContext from '../../../hoc/withAuthContext';
-import { habitsDbRef } from '../../../firebase';
+import {
+  habitsDbRef,
+  getHabitsByCategory,
+  onChildAddedListener,
+  onChildRemovedListener,
+} from '../../../firebase';
 import styles from './styles.css';
 
 class DashboardPage extends Component {
@@ -16,96 +21,86 @@ class DashboardPage extends Component {
     }).isRequired,
   };
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { category: nextC } = queryString.parse(nextProps.location.search);
+    const prevC = prevState.category;
+    const isCategoryUpdated = nextC !== prevC;
+
+    return {
+      category: isCategoryUpdated ? nextC : prevC,
+    };
+  }
+
   state = {
     showModal: false,
     habits: {},
+    category: '',
   };
 
   componentDidMount() {
-    this.getHabitsByCategory();
-    this.initChildAddedListener();
-    this.initChildRemovedListener();
-  }
+    const { userId } = this.props;
+    const { category } = queryString.parse(this.props.location.search);
 
-  // TODO: показать и рассказать зачем это нужно и почему это классно
-  // подумать как не вешать слушателя при изменении параметра, сделать универсального
-  componentDidUpdate(nextProps) {
-    if (nextProps.location.search !== this.props.location.search) {
-      this.getHabitsByCategory();
-      this.initChildAddedListener();
-      this.initChildRemovedListener();
-      console.log('oh mah god, we got habitz-z-z-z!');
+    if (category) {
+      console.log('[CDM]: setting listeners for: ', category);
+      getHabitsByCategory(userId, category, this.onGetHabits);
+      onChildAddedListener(userId, category, this.onHabitAdded);
+      onChildRemovedListener(userId, category, this.onHabitRemoved);
     }
   }
 
-  // TODO: везде убрать family по умолчанию и завязать на параметры query-string
-  // TODO: перенести в firebase, походу когда что угодно делаем тянет
-  // Раньше было initOnceOnValueListener
-  // вместо callback можно метод компонента передавать и там все делать, хорошая идея!
-  getHabitsByCategory = () => {
-    const { userId, location } = this.props;
-    const params = queryString.parse(location.search);
+  // TODO: показать и рассказать зачем это нужно и почему это классно
+  // подумать как не вешать слушателя при изменении параметра,
+  // сделать универсального
+  componentDidUpdate(prevProps, prevState) {
+    const { userId } = this.props;
+    const { category: nextCategory } = this.state;
+    const { category: prevCategory } = prevState;
 
-    // TODO: разобраться что это
-    habitsDbRef.child(`${userId}/habitsCounter`).once('value', snap => {
-      const value = snap.val();
-
-      if (value) {
-        this.setState({ habitsCounter: value });
-      } else {
-        // this.createHabitsCounter();
+    if (nextCategory !== prevCategory) {
+      if (prevCategory !== '') {
+        console.log('[CDU]: removing listeners from:', prevCategory);
+        habitsDbRef.child(`${userId}/${prevCategory}`).off();
       }
-    });
 
-    habitsDbRef.child(`${userId}/${params.category}`).once('value', snap => {
-      const value = snap.val();
+      console.log('[CDU]: setting listeners for: ', nextCategory);
+      getHabitsByCategory(userId, nextCategory, this.onGetHabits);
+      onChildAddedListener(userId, nextCategory, this.onHabitAdded);
+      onChildRemovedListener(userId, nextCategory, this.onHabitRemoved);
+    }
+  }
 
-      this.setState({ habits: value || {} });
-    });
+  onHabitAdded = snap => {
+    const value = snap.val();
+    const key = snap.key;
+
+    if (value) {
+      this.setState(prevState => ({
+        habits: { ...prevState.habits, [key]: value },
+      }));
+    }
   };
 
-  // TODO: перенести в firebase, походу когда добавляет тянет
-  initChildAddedListener = () => {
-    const { userId, location } = this.props;
-    const params = queryString.parse(location.search);
+  onHabitRemoved = snap => {
+    const value = snap.val();
+    const key = snap.key;
 
-    habitsDbRef
-      .child(`${userId}/${params.category}`)
-      .orderByKey()
-      .limitToLast(1)
-      .on('child_added', snap => {
-        const value = snap.val();
-        const key = snap.key;
+    if (value) {
+      this.setState(prevState => {
+        const { [key]: _, ...habits } = prevState.habits;
 
-        if (value) {
-          this.setState(prevState => ({
-            habits: { ...prevState.habits, [key]: value },
-          }));
-        }
+        return { habits };
       });
+    }
   };
 
-  // TODO: перенести в firebase, походу когда удаляет тянет
-  initChildRemovedListener = () => {
-    const { userId, location } = this.props;
-    const params = queryString.parse(location.search);
+  onGetHabits = snap => {
+    const value = snap.val();
 
-    habitsDbRef
-      .child(`${userId}/${params.category}`)
-      .on('child_removed', snap => {
-        const value = snap.val();
-        const key = snap.key;
-
-        if (value) {
-          this.setState(prevState => {
-            const { [key]: _, ...habits } = prevState.habits;
-
-            return { habits };
-          });
-        }
-      });
+    this.setState({ habits: value || {} });
   };
 
+  // TODO: перенести в HabitEditor
   handleOpenModal = () => this.setState({ showModal: true });
   handleCloseModal = () => this.setState({ showModal: false });
 
@@ -115,7 +110,8 @@ class DashboardPage extends Component {
     return (
       <div className={styles.page}>
         <div className={styles.container}>
-          {/* TODO: когда сделаются счетчики то надо будет композиция для HabitsCtegories */}
+          {/* TODO: когда сделаются счетчики то надо будет
+           композиция для HabitsCtegories */}
           <DashboardSidebar title="Привычки" />
           <div className={styles.content}>
             <HabitEditor

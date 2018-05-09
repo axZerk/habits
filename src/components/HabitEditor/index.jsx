@@ -87,13 +87,10 @@ class HabitEditor extends Component {
         break;
 
       default:
-        console.log('default case');
         break;
     }
 
-    this.setState({ customDays: selectDays, duration: prevDuration }, () =>
-      console.log(this.state.duration),
-    );
+    this.setState({ customDays: selectDays, duration: prevDuration });
   };
 
   handleStartDateChange = date => {
