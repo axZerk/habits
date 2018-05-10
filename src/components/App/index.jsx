@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import PrivateRoute from '../PrivateRoute';
+import PrivateRoute from '../shared/PrivateRoute';
 import AppBar from '../AppBar';
 import routerConfig, { routes } from '../../routing';
 import { AuthContext } from '../../context';
