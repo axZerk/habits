@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Item from './Item';
+import EmptyCategory from '../messages/EmptyCategory';
 // import DateField from '../DateField';
 import withAuthContext from '../../hoc/withAuthContext';
 import { deleteHabit } from '../../firebase';
@@ -9,6 +10,7 @@ import styles from './styles.css';
 // TODO: доделать сам habit
 const HabitsList = ({ items, userId }) => {
   const values = Object.values(items);
+  const isEmpty = values.length === 0;
 
   return (
     <ul className={styles.list}>
@@ -17,7 +19,7 @@ const HabitsList = ({ items, userId }) => {
           <Item userId={userId} index={idx} onDelete={deleteHabit} {...item} />
         </li>
       ))}
-      {values.length === 0 && <p>В этой категории еще нет привычек</p>}
+      {isEmpty && <EmptyCategory />}
       {/* <DateField handleOpenModal={handleOpenModal} /> */}
     </ul>
   );

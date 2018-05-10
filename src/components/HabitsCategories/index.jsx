@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
 import queryString from 'query-string';
+import Icon from '../shared/Icon';
+import ICONS from '../../constants/icons';
 import categories from './categories';
 import styles from './styles.css';
 
@@ -22,7 +24,13 @@ const HabitsCategories = ({ match, location }) => {
               search: `?category=${name}`,
             }}
             className={getClassNames(name)}>
-            # {text}
+            <span className={styles.icon}>
+              {name === category && (
+                <Icon icon={ICONS.arrow_forward} size={16} color="#2196f3" />
+              )}
+            </span>
+
+            {text}
           </Link>
           {/* <span className={styles.counter}>{habitsCounter[name]}</span> */}
         </li>

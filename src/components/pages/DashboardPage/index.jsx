@@ -6,10 +6,10 @@ import HabitsList from '../../HabitsList';
 import HabitEditor from '../../HabitEditor';
 import withAuthContext from '../../../hoc/withAuthContext';
 import {
-  habitsDbRef,
   getHabitsByCategory,
   onChildAddedListener,
   onChildRemovedListener,
+  removeHabitsListener,
 } from '../../../firebase';
 import styles from './styles.css';
 
@@ -22,24 +22,25 @@ class DashboardPage extends Component {
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const { category: nextC } = queryString.parse(nextProps.location.search);
-    const prevC = prevState.category;
-    const isCategoryUpdated = nextC !== prevC;
+    const params = queryString.parse(nextProps.location.search);
+    // TODO: можно в метод вынести составление категорий и проверку
+    const { category: nextCategory } = params;
+    const { category: prevCategory } = prevState;
+    const isCategoryUpdated = nextCategory !== prevCategory;
 
-    return {
-      category: isCategoryUpdated ? nextC : prevC,
-    };
+    const category = isCategoryUpdated ? nextCategory : prevCategory;
+
+    return { category };
   }
 
   state = {
-    showModal: false,
     habits: {},
     category: '',
   };
 
   componentDidMount() {
-    const { userId } = this.props;
-    const { category } = queryString.parse(this.props.location.search);
+    const { userId, location } = this.props;
+    const { category } = queryString.parse(location.search);
 
     if (category) {
       console.log('[CDM]: setting listeners for: ', category);
@@ -56,11 +57,12 @@ class DashboardPage extends Component {
     const { userId } = this.props;
     const { category: nextCategory } = this.state;
     const { category: prevCategory } = prevState;
+    const isCategoryUpdated = nextCategory !== prevCategory;
 
-    if (nextCategory !== prevCategory) {
+    if (isCategoryUpdated) {
       if (prevCategory !== '') {
         console.log('[CDU]: removing listeners from:', prevCategory);
-        habitsDbRef.child(`${userId}/${prevCategory}`).off();
+        removeHabitsListener(userId, prevCategory);
       }
 
       console.log('[CDU]: setting listeners for: ', nextCategory);
@@ -87,17 +89,15 @@ class DashboardPage extends Component {
     const { habits } = this.state;
 
     return (
-      <div className={styles.page}>
-        <div className={styles.container}>
-          {/* TODO: когда сделаются счетчики то надо будет
+      <div className={styles.container}>
+        {/* TODO: когда сделаются счетчики то надо будет
            композиция для HabitsCtegories */}
-          <div className={styles.sidebar}>
-            <HabitEditor />
-            <DashboardSidebar title="Привычки" />
-          </div>
-          <div className={styles.content}>
-            <HabitsList items={habits} />
-          </div>
+        <div className={styles.sidebar}>
+          <HabitEditor />
+          <DashboardSidebar title="Привычки" />
+        </div>
+        <div className={styles.content}>
+          <HabitsList items={habits} />
         </div>
       </div>
     );

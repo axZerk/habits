@@ -72,6 +72,9 @@ export const getHabitsByCategory = (userId, category, callback) => {
   // });
 };
 
+export const removeHabitsListener = (userId, category) =>
+  habitsDbRef.child(`${userId}/${category}`).off();
+
 export const onChildAddedListener = (userId, category, callback) =>
   habitsDbRef
     .child(`${userId}/${category}`)
