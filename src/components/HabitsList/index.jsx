@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import HabitsListItem from '../HabitsListItem';
+import Item from './Item';
 // import DateField from '../DateField';
 import withAuthContext from '../../hoc/withAuthContext';
 import { deleteHabit } from '../../firebase';
@@ -14,12 +14,7 @@ const HabitsList = ({ items, userId }) => {
     <ul className={styles.list}>
       {values.map((item, idx) => (
         <li key={item.id}>
-          <HabitsListItem
-            userId={userId}
-            index={idx}
-            onDelete={deleteHabit}
-            {...item}
-          />
+          <Item userId={userId} index={idx} onDelete={deleteHabit} {...item} />
         </li>
       ))}
       {values.length === 0 && <p>В этой категории еще нет привычек</p>}

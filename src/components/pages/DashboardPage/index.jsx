@@ -83,12 +83,8 @@ class DashboardPage extends Component {
 
   onGetHabits = value => this.setState({ habits: value });
 
-  // TODO: перенести в HabitEditor
-  handleOpenModal = () => this.setState({ showModal: true });
-  handleCloseModal = () => this.setState({ showModal: false });
-
   render() {
-    const { showModal, habits } = this.state;
+    const { habits } = this.state;
 
     return (
       <div className={styles.page}>
@@ -97,11 +93,7 @@ class DashboardPage extends Component {
            композиция для HabitsCtegories */}
           <DashboardSidebar title="Привычки" />
           <div className={styles.content}>
-            <HabitEditor
-              onOpen={this.handleOpenModal}
-              onClose={this.handleCloseModal}
-              isVisible={showModal}
-            />
+            <HabitEditor />
             <HabitsList items={habits} />
           </div>
         </div>

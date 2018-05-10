@@ -31,9 +31,6 @@ const initialState = {
 
 class HabitEditor extends Component {
   static propTypes = {
-    onClose: PropTypes.func.isRequired,
-    onOpen: PropTypes.func.isRequired,
-    isVisible: PropTypes.bool.isRequired,
     userId: PropTypes.string.isRequired,
   };
 
@@ -53,8 +50,10 @@ class HabitEditor extends Component {
       '6': false,
       '0': false,
     },
+    isModalVisible: false,
   };
 
+  // TODO: порефакторить эту магию чуть-чуть
   getDuration = evt => {
     const prevDuration = { ...this.state.duration };
     let selectDays = false;
@@ -131,9 +130,8 @@ class HabitEditor extends Component {
     // }
 
     const { title, category, startDate, duration } = this.state;
-    const { userId, onClose } = this.props;
+    const { userId } = this.props;
 
-    // form is valid! We can parse and submit data
     const habit = {
       title,
       category,
@@ -143,31 +141,39 @@ class HabitEditor extends Component {
 
     addHabit(userId, habit)
       .then(() => this.setState({ ...initialState }))
-      .then(onClose);
+      .then(this.handleCloseModal);
   };
 
+  handleOpenModal = () => this.setState({ isModalVisible: true });
+  handleCloseModal = () => this.setState({ isModalVisible: false });
+
   render() {
-    const { category, datePickerStartDate, customDays } = this.state;
-    const { isVisible, onOpen, onClose } = this.props;
+    const {
+      isModalVisible,
+      category,
+      datePickerStartDate,
+      customDays,
+    } = this.state;
 
     return (
       <Fragment>
-        <button onClick={onOpen} className={styles.button}>
+        <button onClick={this.handleOpenModal} className={styles.button}>
           Добавить привычку
         </button>
 
         <ReactModal
-          isOpen={isVisible}
+          isOpen={isModalVisible}
           contentLabel="onRequestClose Example"
           shouldCloseOnOverlayClick={false}
           className={styles.modal}
           overlayClassName={styles.overlay}>
-          <button className={styles.btnClose} onClick={onClose}>
+          <button className={styles.btnClose} onClick={this.handleCloseModal}>
             &times;
           </button>
-          <h4 className={styles.header}>Новая привычка</h4>
-
+          {/* TODO: вынести форму в отдельный компонент */}
           <form className={styles.form} noValidate onSubmit={this.handleSubmit}>
+            <h4 className={styles.header}>Новая привычка</h4>
+
             <input
               className={styles.input}
               placeholder="Название"

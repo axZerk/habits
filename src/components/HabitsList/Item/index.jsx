@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 // import { habitsDbRef } from '../../firebase';
 import styles from './styles.css';
 
-export default class Habit extends Component {
+export default class HabitsListItem extends Component {
   static propTypes = {
     index: PropTypes.number.isRequired,
     id: PropTypes.string.isRequired,
