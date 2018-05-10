@@ -29,6 +29,6 @@ export default [
   },
   {
     category: 'voyage',
-    name: 'Путешевствия',
+    name: 'Путешествия',
   },
 ];

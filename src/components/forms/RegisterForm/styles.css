@@ -30,6 +30,7 @@
 .input::placeholder {
   color: #757575;
 }
+
 .list {
   padding: 0;
   width: 100%;
@@ -42,31 +43,4 @@
 
 .input:focus {
   border: 1px solid #777;
-}
-
-.button {
-  margin-right: 10px;
-  margin-left: 10px;
-  display: inline-block;
-  border: 0;
-  text-transform: uppercase;
-  padding: 0 15px;
-  font-weight: 500;
-  line-height: 40px;
-  background-color: #2196f3;
-  color: #ffffff;
-  cursor: pointer;
-  border-radius: 2px;
-  text-decoration: none;
-  outline: 0;
-  font-size: 14px;
-  text-align: center;
-  vertical-align: middle;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-  font-family: inherit;
-}
-
-.button:hover {
-  background-color: #1976d2;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
 }

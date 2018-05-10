@@ -1,0 +1,31 @@
+.button {
+  display: inline-block;
+  border: none;
+  outline: none;
+  padding: 10px 15px;
+  border-radius: 2px;
+  color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 400;
+  background-color: #2196f3;
+  text-decoration: none;
+  font-size: 16px;
+  text-align: center;
+  vertical-align: middle;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  font-family: inherit;
+  transition: box-shadow 0.1s linear;
+}
+
+.button:hover {
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.primary {
+  background-color: #2196f3;
+}
+
+.primary:hover {
+  background-color: #1976d2;
+}

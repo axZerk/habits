@@ -4,9 +4,9 @@ import { routes } from '../../routing';
 import styles from './styles.css';
 
 const navLinks = [
-  { path: routes.dashboard, text: 'Dashboard' },
-  { path: routes.profile, text: 'Profile' },
-  { path: routes.logout, text: ' Log Out' },
+  { path: routes.dashboard, text: 'Привычки' },
+  { path: routes.profile, text: 'Профиль' },
+  { path: routes.logout, text: 'Выйти' },
 ];
 
 const Navigation = () => (

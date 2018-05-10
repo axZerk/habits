@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Validator from 'validator';
+import Button from '../../shared/Button';
 import styles from './styles.css';
 
 export default class LoginForm extends Component {
@@ -85,7 +86,7 @@ export default class LoginForm extends Component {
             />
           </li>
         </ul>
-        <button className={styles.button}>Login</button>
+        <Button type="submit" text="Войти" primary />
       </form>
     );
   }

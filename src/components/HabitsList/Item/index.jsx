@@ -1,6 +1,8 @@
 /* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Icon from '../../shared/Icon';
+import ICONS from '../../../constants/icons';
 // import { calcDay } from '../DateField';
 // import { habitsDbRef } from '../../firebase';
 import styles from './styles.css';
@@ -123,7 +125,7 @@ export default class HabitsListItem extends Component {
           <li className={styles.list_item} />
         </ul>
         <button className={styles.button} onClick={this.onDeleteClick}>
-          &times;
+          <Icon icon={ICONS.delete} size={30} />
         </button>
       </div>
     );

@@ -91,9 +91,11 @@ class DashboardPage extends Component {
         <div className={styles.container}>
           {/* TODO: когда сделаются счетчики то надо будет
            композиция для HabitsCtegories */}
-          <DashboardSidebar title="Привычки" />
-          <div className={styles.content}>
+          <div className={styles.sidebar}>
             <HabitEditor />
+            <DashboardSidebar title="Привычки" />
+          </div>
+          <div className={styles.content}>
             <HabitsList items={habits} />
           </div>
         </div>

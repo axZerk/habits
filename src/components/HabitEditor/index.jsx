@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import DatePicker from 'react-datepicker';
@@ -7,6 +7,9 @@ import 'react-datepicker/dist/react-datepicker.css';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import Categories from './Categories';
 import DaysList from './DaysList';
+import Icon from '../shared/Icon';
+import ICONS from '../../constants/icons';
+import Button from '../shared/Button';
 import withAuthContext from '../../hoc/withAuthContext';
 import { addHabit } from '../../firebase';
 import styles from './styles.css';
@@ -156,10 +159,12 @@ class HabitEditor extends Component {
     } = this.state;
 
     return (
-      <Fragment>
-        <button onClick={this.handleOpenModal} className={styles.button}>
-          Добавить привычку
-        </button>
+      <div className={styles.container}>
+        <Button
+          onClick={this.handleOpenModal}
+          text="Добавить привычку"
+          primary
+        />
 
         <ReactModal
           isOpen={isModalVisible}
@@ -168,15 +173,16 @@ class HabitEditor extends Component {
           className={styles.modal}
           overlayClassName={styles.overlay}>
           <button className={styles.btnClose} onClick={this.handleCloseModal}>
-            &times;
+            <Icon icon={ICONS.close} size={40} />
           </button>
+
           {/* TODO: вынести форму в отдельный компонент */}
           <form className={styles.form} noValidate onSubmit={this.handleSubmit}>
             <h4 className={styles.header}>Новая привычка</h4>
 
             <input
               className={styles.input}
-              placeholder="Название"
+              placeholder="Описание"
               required
               onChange={this.handleTitleChange}
             />
@@ -196,12 +202,10 @@ class HabitEditor extends Component {
             </label>
             {/* TODO: что это за DaysList и что делает customdays */}
             {customDays && <DaysList selectDay={this.selectDay} />}
-            <button type="submit" className={styles.btnSubmit}>
-              Создать
-            </button>
+            <Button type="submit" text="Создать" primary />
           </form>
         </ReactModal>
-      </Fragment>
+      </div>
     );
   }
 }

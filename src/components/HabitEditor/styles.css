@@ -1,3 +1,8 @@
+.container {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 .modal {
   display: flex;
   flex-direction: column;
@@ -6,13 +11,12 @@
   position: absolute;
   top: 50%;
   left: 50%;
+  transform: translate(-50%, -50%);
   right: auto;
   bottom: auto;
-  background-color: #fff;
+  background-color: #ffffff;
   padding: 2rem;
-  marginright: -50%;
-  transform: translate(-50%, -50%);
-  max-width: 27rem;
+  max-width: 32rem;
   min-width: 20rem;
 }
 
@@ -31,7 +35,7 @@ ul {
 
 .header {
   font-size: 1.5rem;
-  color: #303f9f;
+  color: #212121;
   margin-top: 0;
   margin-bottom: 1.5em;
 }
@@ -43,14 +47,19 @@ ul {
 }
 
 .input {
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
-  border-bottom: 3px solid #d5d5d5;
-  color: #9e9e9e;
+  border: 0;
+  border-bottom: 2px solid #212121;
+  color: #212121;
   margin-bottom: 1.5rem;
   width: 100%;
   font-size: 1em;
+  padding: 5px;
+  outline: 0;
+  font-family: inherit;
+}
+
+.input:focus {
+  border-color: #2196f3;
 }
 
 .label {
@@ -83,50 +92,14 @@ ul {
   outline: none;
 }
 
-.btnSubmit {
-  align-self: center;
-  border: 0;
-  border-radius: 0.5rem;
-  background-color: #ff5722;
-  color: #fff;
-  padding: 0.75em;
-  font-size: 1em;
-  text-transform: uppercase;
-  outline: none;
-  cursor: pointer;
-}
-
 .btnClose {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 30px;
-  height: 30px;
-  font-size: 28px;
+  top: 5px;
+  right: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  line-height: 1;
-  font-family: inherit;
   background-color: transparent;
   border: 0;
-  color: #ff5722;
   cursor: pointer;
-}
-
-.button {
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-  border: none;
-  color: #ffffff;
-  padding: 10px 20px;
-  font-size: 20px;
-  background-color: #ef5350;
-  transition: box-shadow 0.1s linear;
-  cursor: pointer;
-}
-
-.button:hover {
-  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.3);
 }
