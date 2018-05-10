@@ -31,8 +31,4 @@ export default [
     name: 'voyage',
     text: 'Путешествия',
   },
-  {
-    name: 'all',
-    text: 'Все',
-  },
 ];

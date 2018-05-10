@@ -12,7 +12,7 @@ const navLinks = [
 const Navigation = () => (
   <ul className={styles.nav}>
     {navLinks.map(({ path, text }) => (
-      <li key={path}>
+      <li key={path} className={styles.item}>
         <NavLink
           className={styles.link}
           activeClassName={styles.active}

@@ -4,6 +4,9 @@
   align-items: center;
   padding: 5px;
   color: #757575;
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  margin-bottom: 15px;
 }
 
 .index {
@@ -22,7 +25,7 @@
 .list_item {
   padding: 30px;
   margin-right: 10px;
-  background-color: #ef5350;
+  background-color: #ff5722;
 }
 
 .title {
