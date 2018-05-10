@@ -1,0 +1,53 @@
+.radio {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  opacity: 0;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+}
+
+.icon {
+  display: inline-block;
+  margin-bottom: 5px;
+  padding: 10px;
+  border-radius: 2px;
+  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2);
+}
+
+.label:hover .icon {
+  box-shadow: 0 0 4px 4px rgba(0, 0, 0, 0.2);
+}
+
+.span {
+  font-size: 1rem;
+}
+
+.active {
+  color: #2196f3;
+}
+
+.active .icon {
+  box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn {
+  background-color: #fff;
+  display: block;
+  border: 1px solid #cdcdcd;
+  border-radius: 1rem;
+  margin: 0 auto;
+  width: 58px;
+  height: 58px;
+  outline: none;
+  cursor: pointer;
+}

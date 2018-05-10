@@ -5,97 +5,10 @@
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
   margin-bottom: 1.5rem;
 }
 
 .item {
+  margin-bottom: 15px;
   flex: 0 0 25%;
-}
-
-.radio {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  opacity: 0;
-}
-
-.label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  cursor: pointer;
-  border: 2px solid #424242;
-}
-
-.span {
-  font-size: 0.75rem;
-}
-
-.active {
-  color: #b9f6ca;
-}
-
-.btn {
-  background-color: #fff;
-  display: block;
-  border: 1px solid #cdcdcd;
-  border-radius: 1rem;
-  margin: 0 auto;
-  width: 58px;
-  height: 58px;
-  outline: none;
-  cursor: pointer;
-}
-
-.item > .family {
-  /* background: url(../../images/icon-20.svg) no-repeat #fff; */
-  background-size: 46px 46px;
-  background-position: center;
-}
-
-.item > .health {
-  /* background: url(../../images/icon-28.svg) no-repeat; */
-  background-size: 46px 46px;
-  background-position: center;
-}
-
-.item > .self-development {
-  /* background: url(../../images/icon-22.svg) no-repeat; */
-  background-size: 46px 46px;
-  background-position: center;
-}
-
-.item > .hobbys {
-  /* background: url(../../images/icon-23.svg) no-repeat; */
-  background-size: 46px 46px;
-  background-position: center;
-}
-
-.item > .environment {
-  /* background: url(../../images/icon-27.svg) no-repeat; */
-  background-size: 46px 46px;
-  background-position: center;
-}
-
-.item > .finance {
-  /* background: url(../../images/icon-26.svg) no-repeat; */
-  background-size: 46px 46px;
-  background-position: center;
-}
-
-.item > .carrier {
-  /* background: url(../../images/icon-25.svg) no-repeat; */
-  background-size: 46px 46px;
-  background-position: center;
-}
-
-.item > .voyage {
-  /* background: url(../../images/icon-24.svg) no-repeat; */
-  background-size: 46px 46px;
-  background-position: center;
 }

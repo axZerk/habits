@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Validator from 'validator';
+import Button from '../../shared/Button';
 import styles from './styles.css';
 
 export default class RegisterForm extends Component {
@@ -107,7 +108,7 @@ export default class RegisterForm extends Component {
             />
           </li>
         </ul>
-        <button className={styles.button}>Register</button>
+        <Button type="submit" text="Регистрация" primary />
       </form>
     );
   }
