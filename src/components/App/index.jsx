@@ -47,6 +47,7 @@ export default class App extends Component {
 
           <Switch>
             {publicRoutes.map(route => <Route key={route.path} {...route} />)}
+
             {privateRoutes.map(route => (
               <PrivateRoute
                 key={route.path}

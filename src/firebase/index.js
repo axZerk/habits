@@ -12,10 +12,10 @@ export {
   deleteHabit,
   updateHabit,
   getHabitsByCategory,
+  createHabitsCounter,
   onChildAddedListener,
   onChildRemovedListener,
-  getAllAndJoin,
-  removeHabitsListener,
-  createHabitsCounter,
   onCounterUpdatedListener,
+  removeHabitsListener,
+  getAllAndJoin,
 } from './habits';

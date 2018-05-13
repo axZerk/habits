@@ -7,11 +7,11 @@ import ICONS from '../../constants/icons';
 import categories from '../../constants/habits-categories';
 import styles from './styles.css';
 
-const HabitsCategories = ({ match, location, counter }) => {
+const CategoriesList = ({ match, location, counter }) => {
   const { category } = queryString.parse(location.search);
 
   const getClassNames = name =>
-    `${styles.link} ${name === category && styles.active}`;
+    `${styles.link} ${name === category ? styles.active : ''}`;
 
   return (
     <ul className={styles.list}>
@@ -37,7 +37,7 @@ const HabitsCategories = ({ match, location, counter }) => {
   );
 };
 
-HabitsCategories.propTypes = {
+CategoriesList.propTypes = {
   match: PropTypes.shape().isRequired,
   location: PropTypes.shape().isRequired,
   counter: PropTypes.shape({
@@ -52,4 +52,4 @@ HabitsCategories.propTypes = {
   }).isRequired,
 };
 
-export default withRouter(HabitsCategories);
+export default withRouter(CategoriesList);

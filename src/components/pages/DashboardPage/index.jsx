@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
-import DashboardSidebar from '../../DashboardSidebar';
+import Sidebar from '../../Sidebar';
 import HabitsList from '../../HabitsList';
 import HabitEditor from '../../HabitEditor';
-import HabitsCategories from '../../HabitsCategories';
+import CategoriesList from '../../CategoriesList';
 import withAuthContext from '../../../hoc/withAuthContext';
 import {
   getHabitsByCategory,
@@ -112,9 +112,9 @@ class DashboardPage extends Component {
       <div className={styles.container}>
         <div className={styles.sidebar}>
           <HabitEditor />
-          <DashboardSidebar title="Категории">
-            <HabitsCategories counter={habitsCounter} />
-          </DashboardSidebar>
+          <Sidebar title="Категории">
+            <CategoriesList counter={habitsCounter} />
+          </Sidebar>
         </div>
         <div className={styles.content}>
           <HabitsList items={habits} />
