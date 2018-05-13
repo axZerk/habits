@@ -8,25 +8,18 @@ const throwError = error => {
 /**
  * Create new user on firebase
  *
- * @param {Object} { email, password }
+ * @param {Object} { email, password, name }
  */
 export const createUserWithEmailAndPassword = ({ email, password, name }) =>
   auth
     .createUserWithEmailAndPassword(email, password)
-    .then(user =>
-      user.updateProfile({ displayName: name, id: user.uid }).then(() => user),
-    )
-    // FIXME: мне не нравится как добавляется
     .then(user => {
-      const userRef = usersDbRef.child(`${user.uid}`);
+      user.updateProfile({ displayName: name, id: user.uid });
 
-      return userRef
-        .set({ id: user.uid, email, name })
-        .then(() => user)
-        .catch(error => this.setState({ error: error.message }));
+      usersDbRef.child(`${user.uid}`).set({ id: user.uid, email, name });
+
+      createHabitsCounter(user.uid);
     })
-    // TODO: тут создается счетчик при регистрации сразу
-    .then(createHabitsCounter)
     .catch(throwError);
 
 /**

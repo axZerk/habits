@@ -4,28 +4,31 @@ const throwError = error => {
   throw new Error(`Error: ${error}`);
 };
 
+const updateHabitsCounter = ({ userId, category, operation }) => {
+  habitsDbRef.child(`${userId}/counter`).once('value', snap => {
+    const counter = snap.val();
+    const count = counter[category];
+    const value = operation === 'increment' ? count + 1 : count - 1;
+
+    habitsDbRef.child(`${userId}/counter`).set({
+      ...counter,
+      [category]: value,
+    });
+  });
+};
+
 export const addHabit = (userId, habit) => {
   const id = habitsDbRef.child(`${userId}/${habit.category}`).push().key;
   const newHabit = { ...habit, id };
+  const category = newHabit.category;
 
-  return (
-    habitsDbRef
-      .child(`${userId}/${habit.category}/${id}`)
-      .set(newHabit)
-      // TODO: Походу при добавлении обновляется счетчик категории
-      .then(() => {
-        habitsDbRef.child(`${userId}/counter`).once('value', snap => {
-          const counter = snap.val();
-          const categoryCount = counter[habit.category];
-
-          habitsDbRef.child(`${userId}/counter`).set({
-            ...counter,
-            [habit.category]: categoryCount + 1,
-          });
-        });
-      })
-      .catch(throwError)
-  );
+  return habitsDbRef
+    .child(`${userId}/${habit.category}/${id}`)
+    .set(newHabit)
+    .then(() =>
+      updateHabitsCounter({ userId, category, operation: 'increment' }),
+    )
+    .catch(throwError);
 };
 
 export const deleteHabit = (userId, category, habitId) =>
@@ -33,50 +36,16 @@ export const deleteHabit = (userId, category, habitId) =>
     .child(`${userId}/${category}/${habitId}`)
     .remove()
     .then(() =>
-      // TODO: Походу при удалении обновляется счетчик категории
-      habitsDbRef.child(`${userId}/counter`).once('value', snap => {
-        const counter = snap.val();
-        const categoryCount = counter[category];
-
-        if (categoryCount > 0) {
-          habitsDbRef.child(`${userId}/counter`).set({
-            ...counter,
-            [category]: categoryCount - 1,
-          });
-        }
-      }),
+      updateHabitsCounter({ userId, category, operation: 'decrement' }),
     )
     .catch(throwError);
 
-export const updateHabit = (userId, category, habitId, updatedData) =>
-  habitsDbRef.child(`${userId}/${category}/${habitId}`).update(updatedData);
-
-// TODO: пока оставил магию на всякий случай
-// export const getHabitsByCategory = (userId, category, callback) => {
-//   const habitsPromise = habitsDbRef.child(`${userId}/${category}`).once('value');
-//   const counterPromise = habitsDbRef.child(`${userId}/counter`).once('value');
-
-//   Promise.all([habitsPromise, counterPromise])
-//     .then(([habitsSnap, counterSnap]) => {
-//       const habits = habitsSnap.val() || {};
-//       const counter = counterSnap.val() || {};
-
-//       return { habits, counter };
-//     })
-//     .then(callback)
-//     .catch(throwError);
-// };
-
-export const getHabitsByCategory = (userId, category, callback) => {
+export const getHabitsByCategory = (userId, category, callback) =>
   habitsDbRef.child(`${userId}/${category}`).once('value', snap => {
     const value = snap.val() || {};
 
     callback(value);
   });
-};
-
-export const removeHabitsListener = (userId, category) =>
-  habitsDbRef.child(`${userId}/${category}`).off();
 
 export const onChildAddedListener = (userId, category, callback) =>
   habitsDbRef
@@ -102,11 +71,11 @@ export const onChildRemovedListener = (userId, category, callback) =>
     }
   });
 
-export const getAllAndJoin = userId =>
-  habitsDbRef.child(userId).once('value', snap => snap.val());
+export const removeHabitsListener = (userId, category) =>
+  habitsDbRef.child(`${userId}/${category}`).off();
 
-export const createHabitsCounter = user => {
-  habitsDbRef.child(`${user.uid}/counter`).set({
+export const createHabitsCounter = userId =>
+  habitsDbRef.child(`${userId}/counter`).set({
     family: 0,
     health: 0,
     self: 0,
@@ -116,7 +85,6 @@ export const createHabitsCounter = user => {
     career: 0,
     voyage: 0,
   });
-};
 
 export const onCounterUpdatedListener = (userId, callback) =>
   habitsDbRef.child(`${userId}/counter`).on('value', snap => {
@@ -126,3 +94,11 @@ export const onCounterUpdatedListener = (userId, callback) =>
       callback(value);
     }
   });
+
+// TODO: вот это разобрать
+export const getAllAndJoin = userId =>
+  habitsDbRef.child(userId).once('value', snap => snap.val());
+
+// TODO: пока болванка
+export const updateHabit = (userId, category, habitId, updatedData) =>
+  habitsDbRef.child(`${userId}/${category}/${habitId}`).update(updatedData);
