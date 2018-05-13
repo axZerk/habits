@@ -2,11 +2,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px;
-  color: #757575;
-  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  color: #212121;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
   border-radius: 2px;
   margin-bottom: 15px;
+  transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.item:hover {
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12);
 }
 
 .index {
@@ -25,7 +32,7 @@
 .list_item {
   padding: 30px;
   margin-right: 10px;
-  background-color: #ff5722;
+  background-color: #039be5;
 }
 
 .title {

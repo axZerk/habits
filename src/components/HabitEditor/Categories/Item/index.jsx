@@ -5,8 +5,8 @@ import Icon from '../../../shared/Icon';
 import ICONS from '../../../../constants/icons';
 import styles from './styles.css';
 
-const CategoriesItem = ({ category, name, onClick, activeCategory }) => {
-  const active = activeCategory === category;
+const CategoriesItem = ({ name, text, onClick, activeCategory }) => {
+  const active = activeCategory === name;
   const cls = `${styles.label} ${active ? styles.active : ''}`;
   const color = active ? '#2196F3' : '#212121';
 
@@ -16,25 +16,22 @@ const CategoriesItem = ({ category, name, onClick, activeCategory }) => {
         className={styles.radio}
         type="radio"
         name="category"
-        id={category}
-        value={category}
+        id={name}
+        value={name}
       />
-      <label
-        htmlFor={category}
-        className={cls}
-        onClick={() => onClick(category)}>
+      <label htmlFor={name} className={cls} onClick={() => onClick(name)}>
         <span className={styles.icon}>
           <Icon icon={ICONS.home} size={50} color={color} />
         </span>
-        <span className={styles.span}>{name}</span>
+        <span className={styles.span}>{text}</span>
       </label>
     </Fragment>
   );
 };
 
 CategoriesItem.propTypes = {
-  category: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   activeCategory: PropTypes.string.isRequired,
 };

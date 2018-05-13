@@ -4,11 +4,10 @@ import { Link, withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 import Icon from '../shared/Icon';
 import ICONS from '../../constants/icons';
-import categories from './categories';
+import categories from '../../constants/habits-categories';
 import styles from './styles.css';
 
-// TODO: HabitsCoutner привести в порядок
-const HabitsCategories = ({ match, location }) => {
+const HabitsCategories = ({ match, location, counter }) => {
   const { category } = queryString.parse(location.search);
 
   const getClassNames = name =>
@@ -29,10 +28,9 @@ const HabitsCategories = ({ match, location }) => {
                 <Icon icon={ICONS.arrow_forward} size={16} color="#2196f3" />
               )}
             </span>
-
             {text}
           </Link>
-          {/* <span className={styles.counter}>{habitsCounter[name]}</span> */}
+          <span className={styles.counter}>{counter[name]}</span>
         </li>
       ))}
     </ul>
@@ -42,7 +40,16 @@ const HabitsCategories = ({ match, location }) => {
 HabitsCategories.propTypes = {
   match: PropTypes.shape().isRequired,
   location: PropTypes.shape().isRequired,
-  // habitsCounter,
+  counter: PropTypes.shape({
+    family: PropTypes.number.isRequired,
+    health: PropTypes.number.isRequired,
+    self: PropTypes.number.isRequired,
+    hobbies: PropTypes.number.isRequired,
+    environment: PropTypes.number.isRequired,
+    finance: PropTypes.number.isRequired,
+    career: PropTypes.number.isRequired,
+    voyage: PropTypes.number.isRequired,
+  }).isRequired,
 };
 
 export default withRouter(HabitsCategories);

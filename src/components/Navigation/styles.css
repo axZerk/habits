@@ -13,7 +13,7 @@
 .link {
   position: relative;
   display: block;
-  padding: 30px 20px;
+  padding: 25px 20px;
   text-decoration: none;
   font-size: 18px;
   font-weight: 400;
@@ -34,7 +34,7 @@
   width: 0;
   transition: width 0.2s linear;
   height: 6px;
-  background-color: #ff5722;
+  background-color: #ffffff;
 }
 
 .active {

@@ -12,7 +12,7 @@ export default [
     text: 'Саморазвитие',
   },
   {
-    name: 'hobbys',
+    name: 'hobbies',
     text: 'Досуг',
   },
   {

@@ -16,4 +16,6 @@ export {
   onChildRemovedListener,
   getAllAndJoin,
   removeHabitsListener,
+  createHabitsCounter,
+  onCounterUpdatedListener,
 } from './habits';

@@ -143,10 +143,11 @@ class HabitEditor extends Component {
     };
 
     addHabit(userId, habit)
-      .then(() => this.setState({ ...initialState }))
+      .then(this.handleModalReset)
       .then(this.handleCloseModal);
   };
 
+  handleModalReset = () => this.setState({ ...initialState });
   handleOpenModal = () => this.setState({ isModalVisible: true });
   handleCloseModal = () => this.setState({ isModalVisible: false });
 
