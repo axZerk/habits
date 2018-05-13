@@ -4,12 +4,14 @@ import queryString from 'query-string';
 import DashboardSidebar from '../../DashboardSidebar';
 import HabitsList from '../../HabitsList';
 import HabitEditor from '../../HabitEditor';
+import HabitsCategories from '../../HabitsCategories';
 import withAuthContext from '../../../hoc/withAuthContext';
 import {
   getHabitsByCategory,
   onChildAddedListener,
   onChildRemovedListener,
   removeHabitsListener,
+  onCounterUpdatedListener,
 } from '../../../firebase';
 import styles from './styles.css';
 
@@ -36,17 +38,27 @@ class DashboardPage extends Component {
   state = {
     habits: {},
     category: '',
+    habitsCounter: {
+      family: 0,
+      health: 0,
+      self: 0,
+      hobbies: 0,
+      environment: 0,
+      finance: 0,
+      career: 0,
+      voyage: 0,
+    },
   };
 
   componentDidMount() {
-    const { userId, location } = this.props;
+    const { location, userId } = this.props;
     const { category } = queryString.parse(location.search);
+
+    onCounterUpdatedListener(userId, this.onCounterUpdated);
 
     if (category) {
       console.log('[CDM]: setting listeners for: ', category);
-      getHabitsByCategory(userId, category, this.onGetHabits);
-      onChildAddedListener(userId, category, this.onHabitAdded);
-      onChildRemovedListener(userId, category, this.onHabitRemoved);
+      this.onChangeCategory(category);
     }
   }
 
@@ -66,35 +78,43 @@ class DashboardPage extends Component {
       }
 
       console.log('[CDU]: setting listeners for: ', nextCategory);
-      getHabitsByCategory(userId, nextCategory, this.onGetHabits);
-      onChildAddedListener(userId, nextCategory, this.onHabitAdded);
-      onChildRemovedListener(userId, nextCategory, this.onHabitRemoved);
+      this.onChangeCategory(nextCategory);
     }
   }
 
-  onHabitAdded = (value, key) =>
+  onChangeCategory = category => {
+    const { userId } = this.props;
+
+    getHabitsByCategory(userId, category, this.onGetHabits);
+    onChildAddedListener(userId, category, this.onHabitAdded);
+    onChildRemovedListener(userId, category, this.onHabitRemoved);
+  };
+
+  onCounterUpdated = counter => this.setState({ habitsCounter: counter });
+
+  onHabitAdded = ({ value, key }) =>
     this.setState(prevState => ({
       habits: { ...prevState.habits, [key]: value },
     }));
 
-  onHabitRemoved = (value, key) =>
+  onHabitRemoved = key =>
     this.setState(prevState => {
       const { [key]: _, ...habits } = prevState.habits;
       return { habits };
     });
 
-  onGetHabits = value => this.setState({ habits: value });
+  onGetHabits = habits => this.setState({ habits });
 
   render() {
-    const { habits } = this.state;
+    const { habits, habitsCounter } = this.state;
 
     return (
       <div className={styles.container}>
-        {/* TODO: когда сделаются счетчики то надо будет
-           композиция для HabitsCtegories */}
         <div className={styles.sidebar}>
           <HabitEditor />
-          <DashboardSidebar title="Привычки" />
+          <DashboardSidebar title="Категории">
+            <HabitsCategories counter={habitsCounter} />
+          </DashboardSidebar>
         </div>
         <div className={styles.content}>
           <HabitsList items={habits} />

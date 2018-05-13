@@ -18,6 +18,7 @@
   padding: 2rem;
   max-width: 32rem;
   min-width: 20rem;
+  border-radius: 2px;
 }
 
 .overlay {
@@ -38,6 +39,8 @@ ul {
   color: #212121;
   margin-top: 0;
   margin-bottom: 1.5em;
+  font-weight: 500;
+  text-align: center;
 }
 
 .form {
@@ -97,9 +100,18 @@ ul {
   top: 5px;
   right: 5px;
   display: flex;
+  margin: 0;
+  padding: 0;
   align-items: center;
   justify-content: center;
   background-color: transparent;
   border: 0;
+  outline: 0;
   cursor: pointer;
+  border-radius: 50%;
+}
+
+.btnClose:hover,
+.btnClose:focus {
+  transform: scale(1.1);
 }

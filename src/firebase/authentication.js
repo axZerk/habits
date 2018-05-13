@@ -1,8 +1,10 @@
 import { auth, usersDbRef } from './config';
+import { createHabitsCounter } from './habits';
 
 const throwError = error => {
   throw new Error(`Error: ${error}`);
 };
+
 /**
  * Create new user on firebase
  *
@@ -18,10 +20,13 @@ export const createUserWithEmailAndPassword = ({ email, password, name }) =>
     .then(user => {
       const userRef = usersDbRef.child(`${user.uid}`);
 
-      userRef
-        .set({ name, email })
+      return userRef
+        .set({ id: user.uid, email, name })
+        .then(() => user)
         .catch(error => this.setState({ error: error.message }));
     })
+    // TODO: тут создается счетчик при регистрации сразу
+    .then(createHabitsCounter)
     .catch(throwError);
 
 /**

@@ -9,7 +9,7 @@
   width: 30px;
   height: 30px;
   border-radius: 15px;
-  background-color: #3f51b5;
+  background-color: #039be5;
   color: #ffffff;
   line-height: 30px;
   text-align: center;
@@ -38,8 +38,13 @@
   font-weight: 500;
 }
 
+.link:hover,
+.link:focus {
+  color: #039be5;
+}
+
 .active {
-  color: #2196f3;
+  color: #039be5;
 }
 
 .icon {
