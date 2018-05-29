@@ -36,7 +36,6 @@ build/Release
 */node_modules/
 node_modules/
 jspm_packages/
-public/
 
 # Typescript v1 declaration files
 typings/
@@ -69,6 +68,11 @@ typings/
 
 # production
 /build
+
+# firebase
+.firebaserc
+firebase.json
+public/
 
 # misc
 /.idea
