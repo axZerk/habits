@@ -72,7 +72,7 @@ typings/
 # firebase
 .firebaserc
 firebase.json
-public/
+/public
 
 # misc
 /.idea
