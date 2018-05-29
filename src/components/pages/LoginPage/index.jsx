@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
-import LoginForm from '../forms/LoginForm';
-import Loader from '../shared/Loader';
-import withAuthContext from '../../hoc/withAuthContext';
-import { routes } from '../../routing';
-import { signInWithEmailAndPassword } from '../../firebase';
+import { Redirect, Link } from 'react-router-dom';
+import LoginForm from '../../forms/LoginForm';
+import Loader from '../../shared/Loader';
+import withAuthContext from '../../../hoc/withAuthContext';
+import { routes } from '../../../routing';
+import { signInWithEmailAndPassword } from '../../../firebase';
+import styles from './styles.css';
 
 class LoginPage extends Component {
   static propTypes = {
@@ -46,10 +47,19 @@ class LoginPage extends Component {
     }
 
     return (
-      <div>
-        {isAuthenticating
-          ? <Loader width="80px" height="80px" />
-          :<LoginForm onSubmit={this.handleLogin} />}
+      <div className={styles.page}>
+        {isAuthenticating ? (
+          <Loader width="80px" height="80px" />
+        ) : (
+          <div className={styles.container}>
+            <LoginForm onSubmit={this.handleLogin} />
+            <p className={styles.link}>
+              <span>Еще нет аккаунта?</span>
+              <br />
+              <Link to={routes.register}>Зарегистрироваться</Link>
+            </p>
+          </div>
+        )}
       </div>
     );
   }
