@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import queryString from 'query-string';
+import qs from 'qs';
 import Sidebar from '../../Sidebar';
 import HabitsList from '../../HabitsList';
 import HabitEditor from '../../HabitEditor';
@@ -24,7 +24,7 @@ class DashboardPage extends Component {
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    const params = queryString.parse(nextProps.location.search);
+    const params = qs.parse(nextProps.location.search.slice(1));
     // TODO: можно в метод вынести составление категорий и проверку
     const { category: nextCategory } = params;
     const { category: prevCategory } = prevState;
@@ -52,7 +52,7 @@ class DashboardPage extends Component {
 
   componentDidMount() {
     const { location, userId } = this.props;
-    const { category } = queryString.parse(location.search);
+    const { category } = qs.parse(location.search.slice(1));
 
     onCounterUpdatedListener(userId, this.onCounterUpdated);
 

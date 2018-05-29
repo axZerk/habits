@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, withRouter } from 'react-router-dom';
-import queryString from 'query-string';
+import qs from 'qs';
 import Icon from '../shared/Icon';
 import ICONS from '../../constants/icons';
 import categories from '../../constants/habits-categories';
 import styles from './styles.css';
 
 const CategoriesList = ({ match, location, counter }) => {
-  const { category } = queryString.parse(location.search);
+  const { category } = qs.parse(location.search.slice(1));
 
   const getClassNames = name =>
     `${styles.link} ${name === category ? styles.active : ''}`;
