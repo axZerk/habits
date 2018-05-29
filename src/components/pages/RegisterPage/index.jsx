@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
-import RegisterForm from '../forms/RegisterForm';
-import withAuthContext from '../../hoc/withAuthContext';
-import { routes } from '../../routing';
-import { createUserWithEmailAndPassword } from '../../firebase';
+import { Redirect, Link } from 'react-router-dom';
+import RegisterForm from '../../forms/RegisterForm';
+import withAuthContext from '../../../hoc/withAuthContext';
+import { routes } from '../../../routing';
+import { createUserWithEmailAndPassword } from '../../../firebase';
+import styles from './styles.css';
 
 class RegisterPage extends Component {
   static propTypes = {
@@ -39,7 +40,14 @@ class RegisterPage extends Component {
 
     return (
       <div>
-        <RegisterForm onSubmit={this.handleRegistration} />
+        <div className={styles.container}>
+          <RegisterForm onSubmit={this.handleRegistration} />
+          <p className={styles.link}>
+            <span>Уже есть аккаунт?</span>
+            <br />
+            <Link to={routes.login}>Войти</Link>
+          </p>
+        </div>
       </div>
     );
   }

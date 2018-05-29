@@ -82,6 +82,13 @@ class DashboardPage extends Component {
     }
   }
 
+  componentWillUnmount() {
+    const { userId } = this.props;
+    const { category } = this.state;
+
+    removeHabitsListener(userId, category);
+  }
+
   onChangeCategory = category => {
     const { userId } = this.props;
 

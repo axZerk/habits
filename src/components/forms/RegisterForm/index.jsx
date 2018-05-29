@@ -108,7 +108,7 @@ export default class RegisterForm extends Component {
             />
           </li>
         </ul>
-        <Button type="submit" text="Регистрация" primary />
+        <Button type="submit" text="Зарегистрироваться" primary />
       </form>
     );
   }
